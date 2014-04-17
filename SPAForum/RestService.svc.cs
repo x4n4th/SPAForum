@@ -17,5 +17,12 @@ namespace SPAForum
                 return posts.ToArray();
             }
         }
+
+        public topic[] getTopics(int forumId) {
+            using (ist331Entities entities = new ist331Entities()) {
+                var posts = from s in entities.topics.Where(x => x.forum_id == forumId) select s;
+                return posts.ToArray();
+            }
+        }
     }
 }

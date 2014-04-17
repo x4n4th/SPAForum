@@ -12,9 +12,24 @@ namespace SPAForum
     [ServiceContract]
     public interface IRestService
     {
+        /// <summary>
+        ///  Given a topic id it returns array of posts
+        /// </summary>
+        /// <param name="topicId"></param>
+        /// <returns></returns>
         [WebGet(UriTemplate = "/getPosts?topic={topicId}",
             ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
         post[] getPosts(int topicId);
+
+        /// <summary>
+        /// Given a forum id returns a array of topics
+        /// </summary>
+        /// <param name="forumId"></param>
+        /// <returns></returns>
+        [WebGet(UriTemplate = "/getTopics?topic={forumId}",
+            ResponseFormat = WebMessageFormat.Json)]
+        [OperationContract]
+        topic[] getTopics(int forumId);
     }
 }
