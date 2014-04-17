@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ist331Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="forums">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="topics" Type="int" />
+          <Property Name="posts" Type="int" />
+          <Property Name="name" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="description" Type="text" />
+          <Property Name="position" Type="int" />
+        </EntityType>
+        <EntityType Name="members">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="member_group_id" Type="int" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="joined" Type="datetime" Nullable="false" />
+          <Property Name="password_hash" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="banned" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="posts">
+          <Key>
+            <PropertyRef Name="pid" />
+          </Key>
+          <Property Name="pid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="author_id" Type="int" Nullable="false" />
+          <Property Name="author_name" Type="varchar" MaxLength="255" />
+          <Property Name="post_date" Type="datetime" Nullable="false" />
+          <Property Name="post" Type="text" />
+          <Property Name="topic_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="topics">
+          <Key>
+            <PropertyRef Name="tid" />
+          </Key>
+          <Property Name="tid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="state" Type="varchar" MaxLength="8" />
+          <Property Name="starter_id" Type="int" Nullable="false" />
+          <Property Name="start_date" Type="datetime" Nullable="false" />
+          <Property Name="forum_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="ist331ModelStoreContainer">
+          <EntitySet Name="forums" EntityType="Self.forums" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="members" EntityType="Self.members" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="posts" EntityType="Self.posts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="topics" EntityType="Self.topics" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ist331Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="forum">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="topics" Type="Int32" />
+          <Property Name="posts" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="position" Type="Int32" />
+        </EntityType>
+        <EntityType Name="member">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="member_group_id" Type="Int32" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="joined" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="password_hash" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="banned" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="post">
+          <Key>
+            <PropertyRef Name="pid" />
+          </Key>
+          <Property Name="pid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="author_id" Type="Int32" Nullable="false" />
+          <Property Name="author_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="post_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="post1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="topic_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="topic">
+          <Key>
+            <PropertyRef Name="tid" />
+          </Key>
+          <Property Name="tid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="state" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="starter_id" Type="Int32" Nullable="false" />
+          <Property Name="start_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="forum_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="ist331Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="forums" EntityType="Self.forum" />
+          <EntitySet Name="members" EntityType="Self.member" />
+          <EntitySet Name="posts" EntityType="Self.post" />
+          <EntitySet Name="topics" EntityType="Self.topic" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ist331ModelStoreContainer" CdmEntityContainer="ist331Entities">
+          <EntitySetMapping Name="forums">
+            <EntityTypeMapping TypeName="ist331Model.forum">
+              <MappingFragment StoreEntitySet="forums">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="topics" ColumnName="topics" />
+                <ScalarProperty Name="posts" ColumnName="posts" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="position" ColumnName="position" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="members">
+            <EntityTypeMapping TypeName="ist331Model.member">
+              <MappingFragment StoreEntitySet="members">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="member_group_id" ColumnName="member_group_id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="joined" ColumnName="joined" />
+                <ScalarProperty Name="password_hash" ColumnName="password_hash" />
+                <ScalarProperty Name="banned" ColumnName="banned" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="posts">
+            <EntityTypeMapping TypeName="ist331Model.post">
+              <MappingFragment StoreEntitySet="posts">
+                <ScalarProperty Name="pid" ColumnName="pid" />
+                <ScalarProperty Name="author_id" ColumnName="author_id" />
+                <ScalarProperty Name="author_name" ColumnName="author_name" />
+                <ScalarProperty Name="post_date" ColumnName="post_date" />
+                <ScalarProperty Name="post1" ColumnName="post" />
+                <ScalarProperty Name="topic_id" ColumnName="topic_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="topics">
+            <EntityTypeMapping TypeName="ist331Model.topic">
+              <MappingFragment StoreEntitySet="topics">
+                <ScalarProperty Name="tid" ColumnName="tid" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="starter_id" ColumnName="starter_id" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="forum_id" ColumnName="forum_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
