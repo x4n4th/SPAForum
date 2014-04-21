@@ -30,18 +30,18 @@
             </nav>
         </div>
     </div>
-    <div class="container">
-        <div class="panel-group" id="accordion">
+    <div class="container" data-ng-controller="loadForums" data-ng-init="init()">
+        <div ng-repeat="forum in forums" class="panel-group" id="accordion">
             <div class="panel panel-default" id="panel1">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-target="#collapseGeneral"
-                           href="#collapseGeneral">
-                            General Topics
+                        <a data-toggle="collapse" data-target="#collapse{{forum.id}}"
+                           href="#collapse{{forum.id}}">
+                            {{forum.description}}
                         </a>
                     </h4>
                 </div>
-                <div id="collapseGeneral" class="panel-collapse collapse in">
+                <div id="collapse{{forum.id}}" class="panel-collapse collapse in">
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-8 topic-list">
@@ -140,6 +140,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
     <script src="http://www.parsecdn.com/js/parse-1.2.12.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script>
+        function loadForums($scope) {
+
+            $scope.init = function () {
+                //Make sure to change the host and port to match the URL 
+                var query = "/RestService.svc/getForums";
+                $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
+                    .done(function (json) {
+                        $scope.forums = json;
+                        $scope.$apply();
+                    })
+                    .fail(function () {
+                        alert("Error");
+                    });
+            }
+        }
+    </script>
 
 </body>
 </html>

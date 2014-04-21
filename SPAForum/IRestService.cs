@@ -31,5 +31,15 @@ namespace SPAForum
             ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
         topic[] getTopics(int forumId);
+
+
+        /// <summary>
+        /// Returns Forums listed on the server.
+        /// </summary>
+        /// <returns></returns>
+        [WebGet(UriTemplate = "/getForums",
+            ResponseFormat = WebMessageFormat.Json)]
+        [OperationContract]
+        forum[] getForums();
     }
 }
