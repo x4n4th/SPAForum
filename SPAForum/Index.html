@@ -13,20 +13,12 @@
         <div class="container">
             <nav class="nav">
                 <a class="nav-item active" href="#">Home</a>
-                <a class="nav-item" href="#">New </a>
-                <a class="nav-item" href="#">Press</a>
-                <div class="nav-right">
-                    <form class="navbar-form navbar-right" role="form">
-                        <div class="form-group">
-                            <input type="text" placeholder="Email" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" placeholder="Password" class="form-control">
-                        </div>
-                        <button type="submit" class="btn btn-success">Sign in</button>
-                        <p><a href="#">Click to Register</a></p>
-                    </form>
-                </div>
+                <a class="nav-item" href="#">About</a>
+                <p class="nav-item" data-toggle="modal" data-target="#loginModal"><a href="#">Sign In</a></p>
+                <p class="nav-item" data-toggle="modal" data-target="#Reg"><a href="#">Register</a></p>  
+                <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" placeholder="Search...">
+                </form>
             </nav>
         </div>
     </div>
@@ -129,6 +121,61 @@
             </div>
         </div> <!--Panel Ending -->
     </div><!--Container Ending -->
+    <!--Login Modal-->
+    <div id="loginModal" class="modal fade"> 
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- dialog body -->
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="modal-header"><h2>Sign In</h2></div>
+                        <form class="" role="form">
+                            <div class="form-group">
+                                <input type="text" placeholder="Email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" placeholder="Password" class="form-control">
+                            </div>
+                            <!-- dialog buttons -->
+                            <button type="submit" class="btn btn-success">Sign in</button>
+                            <button type="submit" class="btn btn-danger" data-dismiss="modal">Cancle</button>
+
+                        </form>
+                    </div>
+            </div> 
+        </div>
+    </div><!--End Login Modal-->
+
+    <!--Register Modal-->
+    <div id="Reg" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- dialog body -->
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="modal-header"> <h2>Registration Form</h2> </div>
+                    <form class="" role="form">
+                        <div class="form-group">
+                            <input type="text" placeholder="Username" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" placeholder="Password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" placeholder="Re Enter Password" class="form-control">
+                        </div>
+                        <!-- dialog buttons -->
+                        <button type="submit" class="btn btn-success">Register</button>
+                        <button type="submit" class="btn btn-danger" data-dismiss="modal">Cancle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div><!--End Register Modal-->
+
 
     <div class="footer">
         <p>Bulit by Deepee <a href="http://deepee.co.nf">Deepee</a>.</p>

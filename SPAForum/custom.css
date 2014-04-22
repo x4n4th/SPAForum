@@ -213,3 +213,16 @@ border: 5px solid #edeff0;
     margin-bottom: 15px;
     border-top: 1px solid #edeff0;
 }
+
+/*left of topics*/
+.col-topic h5 {
+margin-right: 5px;
+float: left;
+width: 100px;
+
+}
+
+.col-topic p {
+ margin-right: 5px;
+margin-top: -3px;
+}
