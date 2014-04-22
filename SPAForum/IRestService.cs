@@ -27,7 +27,7 @@ namespace SPAForum
         /// </summary>
         /// <param name="forumId"></param>
         /// <returns></returns>
-        [WebGet(UriTemplate = "/getTopics?forum={forumId}",
+        [WebGet(UriTemplate = "/getTopics?topic={forumId}",
             ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
         topic[] getTopics(int forumId);
