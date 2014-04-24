@@ -22,28 +22,28 @@
             </nav>
         </div>
     </div>
-    <div style="padding:5px;" class="container" data-ng-controller="loadForums" data-ng-init="init()">
-        <div ng-repeat="forum in forums" class="panel-group" id="accordion">
+    <div style="padding:5px;" class="container" data-ng-controller="loadCatagories" data-ng-init="init()">
+        <div ng-repeat="catagory in catagories" class="panel-group" id="accordion">
             <div class="panel panel-default" id="panel1">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-target="#collapse{{forum.id}}"
-                           href="#collapse{{forum.id}}">
-                            {{forum.name}}
+                        <a data-toggle="collapse" data-target="#collapse{{catagory.id}}"
+                           href="#collapse{{catagory.id}}">
+                            {{catagory.name}}
                         </a>
                     </h4>
                 </div>
-                <div id="collapse{{forum.id}}" class="panel-collapse collapse in">
-                    <div class="panel-body" >
-                        <div class="row" ng-repeat="topic in forums">
+                <div id="collapse{{catagory.id}}" ng-init="param='{{catagory.id}}';" class="panel-collapse collapse in">
+                    <div class="panel-body" data-ng-controller="loadForums" data-ng-init="init(catagory)">
+                        <div class="row" ng-repeat="forum in forums">
                             <div class="col-md-8 topic-list">
                                 <ul>
                                     <li>
                                         <div class="row">
                                             <div class="col-md-1"><div class="avatar" style="background-image: url(https://treehouse-uploads.s3.amazonaws.com/production/profile-photos/732612/treehouse.jpg)"></div></div>
                                             <div class="col-xs-12 col-md-8">
-                                                <h5>HTML/CSS</h5>
-                                                <p>Everything you need to know about html/css</p>
+                                                <h5>{{forum.name}}</h5>
+                                                <p>{{forum.description}}</p>
                                             </div>
                                         </div>
                                     </li>
@@ -133,11 +133,27 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script>
-        function loadForums($scope) {
+        function loadCatagories($scope) {
 
             $scope.init = function () {
                 //Make sure to change the host and port to match the URL 
-                var query = "/RestService.svc/getForums";
+                var query = "/RestService.svc/getCatagories";
+                $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
+                    .done(function (json) {
+                        $scope.catagories = json;
+                        $scope.$apply();
+                    })
+                    .fail(function () {
+                        alert("Error");
+                    });
+            }
+        }
+        function loadForums($scope) {
+
+            $scope.init = function (catagory) {
+                //Make sure to change the host and port to match the URL 
+                console.log(catagory.id)
+                var query = "/RestService.svc/getforums?catId=" + catagory.id;
                 $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
                     .done(function (json) {
                         $scope.forums = json;
