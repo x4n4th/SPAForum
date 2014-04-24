@@ -18,7 +18,7 @@
             <param name="forumId"></param>
             <returns></returns>
         </member>
-        <member name="M:SPAForum.IRestService.getForums">
+        <member name="M:SPAForum.IRestService.getForums(System.Int32)">
             <summary>
             Returns Forums listed on the server.
             </summary>
@@ -54,7 +54,7 @@
             <param name="forumId">forum id</param>
             <returns>an array of topics</returns>
         </member>
-        <member name="M:SPAForum.RestService.getForums">
+        <member name="M:SPAForum.RestService.getForums(System.Int32)">
             <summary>
             Gets a list of forums
             </summary>

@@ -40,10 +40,17 @@ namespace SPAForum
         /// Gets a list of forums
         /// </summary>
         /// <returns>returns a list containing all forums</returns>
-        public forum[] getForums() {
+        public forum[] getForums(int catId) {
             using (ist331Entities entities = new ist331Entities()) {
-                var forums = from s in entities.forums select s;
+                var forums = from s in entities.forums.Where(x => x.catagorieId == catId) select s;
                 return forums.ToArray();
+            }
+        }
+
+        public catagory[] getCatagories() {
+            using (ist331Entities entities = new ist331Entities()) {
+                var catagories = from s in entities.catagories select s;
+                return catagories.ToArray();
             }
         }
 

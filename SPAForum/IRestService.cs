@@ -37,10 +37,15 @@ namespace SPAForum
         /// Returns Forums listed on the server.
         /// </summary>
         /// <returns></returns>
-        [WebGet(UriTemplate = "/getForums",
+        [WebGet(UriTemplate = "/getForums?catId={catId}",
             ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
-        forum[] getForums();
+        forum[] getForums(int catId);
+
+        [WebGet(UriTemplate = "/getCatagories",
+            ResponseFormat = WebMessageFormat.Json)]
+        [OperationContract]
+        catagory[] getCatagories();
 
         /// <summary>
         /// Verifies the user
