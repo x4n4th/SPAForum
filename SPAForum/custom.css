@@ -194,7 +194,6 @@ h6, .h6 {
 list-style-type: none;
 padding: 15px 0 0;
 margin-bottom: 15px;
-border-top: 1px solid #edeff0;
 }
 
 
@@ -211,7 +210,6 @@ border: 5px solid #edeff0;
     list-style-type: none;
     padding: 15px 0 0;
     margin-bottom: 15px;
-    border-top: 1px solid #edeff0;
 }
 
 /*left of topics*/
