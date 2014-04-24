@@ -34,38 +34,11 @@
                     </h4>
                 </div>
                 <div id="collapse{{forum.id}}" class="panel-collapse collapse in">
-                    <div class="panel-body">
+                    <div class="panel-body" ng-repeat="forum in forums">
                         <div class="row">
                             <div class="col-md-8 topic-list">
                                 <p>Topic</p>
                                 <ul>
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-md-1"><div class="avatar" style="background-image: url(https://treehouse-uploads.s3.amazonaws.com/production/profile-photos/732612/treehouse.jpg)"></div></div>
-                                            <div class="col-xs-12 col-md-8">
-                                                <h5>HTML/CSS</h5>
-                                                <p>Everything you need to know about html/css</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-md-1"><div class="avatar" style="background-image: url(https://treehouse-uploads.s3.amazonaws.com/production/profile-photos/732612/treehouse.jpg)"></div></div>
-                                            <div class="col-xs-12 col-md-8">
-                                                <h5>HTML/CSS</h5>
-                                                <p>Everything you need to know about html/css</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-md-1"><div class="avatar" style="background-image: url(https://treehouse-uploads.s3.amazonaws.com/production/profile-photos/732612/treehouse.jpg)"></div></div>
-                                            <div class="col-xs-12 col-md-8">
-                                                <h5>HTML/CSS</h5>
-                                                <p>Everything you need to know about html/css</p>
-                                            </div>
-                                        </div>
-                                    </li>
                                     <li>
                                         <div class="row">
                                             <div class="col-md-1"><div class="avatar" style="background-image: url(https://treehouse-uploads.s3.amazonaws.com/production/profile-photos/732612/treehouse.jpg)"></div></div>
@@ -80,31 +53,6 @@
                             <div class="col-md-4 last-post">
                                 <p>Last post</p>
                                 <ul>
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-xs-6 col-md-8">
-                                                <h5>Date</h5>
-                                                <p>Author</p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-xs-6 col-md-8">
-                                                <h5>Date</h5>
-                                                <p>Author</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-xs-6 col-md-8">
-                                                <h5>Date</h5>
-                                                <p>Author</p>
-                                            </div>
-                                        </div>
-                                    </li>
                                     <li>
                                         <div class="row">
                                             <div class="col-xs-6 col-md-8">
@@ -129,18 +77,18 @@
                 <div class="modal-body">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <div class="modal-header"><h2>Sign In</h2></div>
-                        <form class="" role="form">
-                            <div class="form-group">
-                                <input type="text" placeholder="Email" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" placeholder="Password" class="form-control">
-                            </div>
-                            <!-- dialog buttons -->
-                            <button type="submit" class="btn btn-success">Sign in</button>
-                            <button type="submit" class="btn btn-danger" data-dismiss="modal">Cancle</button>
+                    <form class="" data-ng-submit="submit()" role="form" data-ng-controller="login">
+                        <div class="form-group">
+                            <input type="text" data-ng-model="userName" placeholder="User Name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" data-ng-model="password" placeholder="Password" class="form-control">
+                        </div>
+                        <!-- dialog buttons -->
+                        <input type="submit" value="Login" id="login" class="btn btn-success"/>
+                        <input type="submit" value="Cancel" id="cancel" class="btn btn-danger" data-dismiss="modal"/>
 
-                        </form>
+                    </form>
                     </div>
             </div> 
         </div>
@@ -202,6 +150,20 @@
                     });
             }
         }
+        function login($scope) {
+            $scope.submit = function () {
+                //Make sure to change the host and port to match the URL 
+                var query = "/RESTService.svc/verify?user=" + $scope.userName + "&password=" + $scope.password;
+                $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
+                    .done(function (json) {
+                        console.log(json);
+                    })
+                    .fail(function () {
+                        alert("Error");
+                    });
+            }
+        }
+
     </script>
 
 </body>
