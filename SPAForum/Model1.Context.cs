@@ -16,7 +16,7 @@ namespace SPAForum
     public partial class ist331Entities : DbContext
     {
         public ist331Entities()
-            : base("name=ist331Entities")
+            : base("name=Entities")
         {
         }
     

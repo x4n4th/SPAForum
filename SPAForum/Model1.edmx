@@ -10,7 +10,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="forums">
           <Key>
@@ -22,6 +22,7 @@
           <Property Name="name" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="description" Type="text" />
           <Property Name="position" Type="int" />
+          <Property Name="catagorieId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="members">
           <Key>
@@ -74,7 +75,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="forum">
           <Key>
@@ -86,6 +87,7 @@
           <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="position" Type="Int32" />
+          <Property Name="catagorieId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="member">
           <Key>
@@ -121,7 +123,7 @@
           <Property Name="start_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="forum_id" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="ist331Entities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="catagories" EntityType="Self.catagory" />
           <EntitySet Name="forums" EntityType="Self.forum" />
           <EntitySet Name="members" EntityType="Self.member" />
@@ -133,7 +135,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ist331ModelStoreContainer" CdmEntityContainer="ist331Entities1">
+        <EntityContainerMapping StorageEntityContainer="ist331ModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="catagories">
             <EntityTypeMapping TypeName="ist331Model.catagory">
               <MappingFragment StoreEntitySet="catagories">
@@ -151,6 +153,7 @@
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="catagorieId" ColumnName="catagorieId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
