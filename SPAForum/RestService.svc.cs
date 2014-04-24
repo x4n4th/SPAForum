@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Security.Cryptography;
 using System.ServiceModel;
 using System.Text;
  
@@ -44,6 +45,58 @@ namespace SPAForum
                 var forums = from s in entities.forums select s;
                 return forums.ToArray();
             }
+        }
+
+        /// <summary>
+        /// Checks to see if the user is valid
+        /// </summary>
+        /// <param name="user">users name or login</param>
+        /// <param name="password">password</param>
+        /// <returns>true if user is valid</returns>
+        public bool verifyUser(string user, string password) {
+            using (ist331Entities entities = new ist331Entities()) {
+                string hashedPassword = SHA1HashStringForUTF8String(password);
+                var member = from s in entities.members
+                                 .Where(x => x.name == user)
+                                 .Where(x => x.password_hash == hashedPassword) 
+                             select s;
+
+                if (member != null) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Compute hash for string encoded as UTF8
+        /// </summary>
+        /// <param name="s">String to be hashed</param>
+        /// <returns>40-character hex string</returns>
+        public string SHA1HashStringForUTF8String(string s)
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes(s);
+ 
+            var sha1 = SHA1.Create();
+            byte[] hashBytes = sha1.ComputeHash(bytes);
+ 
+            return HexStringFromBytes(hashBytes);
+        }
+ 
+        /// <summary>
+        /// Convert an array of bytes to a string of hex digits
+        /// </summary>
+        /// <param name="bytes">array of bytes</param>
+        /// <returns>String of hex digits</returns>
+        public string HexStringFromBytes(byte[] bytes)
+        {
+            var sb = new StringBuilder();
+            foreach (byte b in bytes)
+            {
+                var hex = b.ToString("x2");
+                sb.Append(hex);
+            }
+            return sb.ToString();
         }
     }
 }
