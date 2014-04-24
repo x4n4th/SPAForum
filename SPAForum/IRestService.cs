@@ -41,5 +41,16 @@ namespace SPAForum
             ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
         forum[] getForums();
+
+        /// <summary>
+        /// Verifies the user
+        /// </summary>
+        /// <param name="userName">the user name</param>
+        /// <param name="password">password</param>
+        /// <returns>true if user is valid else false</returns>
+        [WebGet(UriTemplate = "/verify?user={userName}&password={password}",
+            ResponseFormat = WebMessageFormat.Json)]
+        [OperationContract]
+        bool verifyUser(string userName, string password);
     }
 }
