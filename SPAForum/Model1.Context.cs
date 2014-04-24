@@ -16,7 +16,7 @@ namespace SPAForum
     public partial class ist331Entities : DbContext
     {
         public ist331Entities()
-            : base("name=ist331Entities")
+            : base("name=ist331Entities1")
         {
         }
     
@@ -25,6 +25,7 @@ namespace SPAForum
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<catagory> catagories { get; set; }
         public virtual DbSet<forum> forums { get; set; }
         public virtual DbSet<member> members { get; set; }
         public virtual DbSet<post> posts { get; set; }
