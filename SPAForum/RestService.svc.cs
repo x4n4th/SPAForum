@@ -69,6 +69,32 @@ namespace SPAForum
         }
 
         /// <summary>
+        /// Creates a new member
+        /// </summary>
+        /// <param name="name">the members name</param>
+        /// <param name="password">the members password</param>
+        /// <returns>returns if the member was created</returns>
+        public bool createMember(string name, string password) {
+            using (ist331Entities entities = new ist331Entities()) {
+                try {
+                    member mem = new member();
+                    mem.joined = DateTime.Now;
+                    mem.member_group_id = 1;
+                    mem.name = name;
+                    mem.password_hash = SHA1HashStringForUTF8String(password);
+
+                    entities.members.Add(mem);
+                    entities.SaveChanges();
+                }
+                catch {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+        /// <summary>
         /// Compute hash for string encoded as UTF8
         /// </summary>
         /// <param name="s">String to be hashed</param>

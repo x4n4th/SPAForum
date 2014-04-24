@@ -52,5 +52,16 @@ namespace SPAForum
             ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
         bool verifyUser(string userName, string password);
+
+        /// <summary>
+        /// Creates a member with a user name and password
+        /// </summary>
+        /// <param name="userName">user name</param>
+        /// <param name="password">password</param>
+        /// <returns>returns if the user was successfully created</returns>
+        [WebGet(UriTemplate = "/createMember?user={userName}&password={password}",
+            ResponseFormat = WebMessageFormat.Json)]
+        [OperationContract]
+        bool createMember(string userName, string password);
     }
 }
