@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SPAForum</name>
+    </assembly>
+    <members>
+        <member name="M:SPAForum.IRestService.getPosts(System.Int32)">
+            <summary>
+             Given a topic id it returns array of posts
+            </summary>
+            <param name="topicId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SPAForum.IRestService.getTopics(System.Int32)">
+            <summary>
+            Given a forum id returns a array of topics
+            </summary>
+            <param name="forumId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SPAForum.IRestService.getForums">
+            <summary>
+            Returns Forums listed on the server.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SPAForum.IRestService.verifyUser(System.String,System.String)">
+            <summary>
+            Verifies the user
+            </summary>
+            <param name="userName">the user name</param>
+            <param name="password">password</param>
+            <returns>true if user is valid else false</returns>
+        </member>
+        <member name="M:SPAForum.IRestService.createMember(System.String,System.String,System.String)">
+            <summary>
+            Creates a member with a user name and password
+            </summary>
+            <param name="userName">user name</param>
+            <param name="password">password</param>
+            <returns>returns if the user was successfully created</returns>
+        </member>
+        <member name="M:SPAForum.RestService.getPosts(System.Int32)">
+            <summary>
+            Gets posts given a certain topic
+            </summary>
+            <param name="topicId">int topic number</param>
+            <returns>array of posts</returns>
+        </member>
+        <member name="M:SPAForum.RestService.getTopics(System.Int32)">
+            <summary>
+            Gets Topics given a forumid
+            </summary>
+            <param name="forumId">forum id</param>
+            <returns>an array of topics</returns>
+        </member>
+        <member name="M:SPAForum.RestService.getForums">
+            <summary>
+            Gets a list of forums
+            </summary>
+            <returns>returns a list containing all forums</returns>
+        </member>
+        <member name="M:SPAForum.RestService.verifyUser(System.String,System.String)">
+            <summary>
+            Checks to see if the user is valid
+            </summary>
+            <param name="user">users name or login</param>
+            <param name="password">password</param>
+            <returns>true if user is valid</returns>
+        </member>
+        <member name="M:SPAForum.RestService.createMember(System.String,System.String,System.String)">
+            <summary>
+            Creates a new member
+            </summary>
+            <param name="name">the members name</param>
+            <param name="email">the members email address</param>
+            <param name="password">the members password</param>
+            <returns>returns if the member was created</returns>
+        </member>
+        <member name="M:SPAForum.RestService.SHA1HashStringForUTF8String(System.String)">
+            <summary>
+            Compute hash for string encoded as UTF8
+            </summary>
+            <param name="s">String to be hashed</param>
+            <returns>40-character hex string</returns>
+        </member>
+        <member name="M:SPAForum.RestService.HexStringFromBytes(System.Byte[])">
+            <summary>
+            Convert an array of bytes to a string of hex digits
+            </summary>
+            <param name="bytes">array of bytes</param>
+            <returns>String of hex digits</returns>
+        </member>
+    </members>
+</doc>

@@ -61,7 +61,7 @@ namespace SPAForum
                                  .Where(x => x.password_hash == hashedPassword) 
                              select s;
 
-                if (member != null) {
+                if(member.Count() > 0){
                     return true;
                 }
             }
@@ -72,9 +72,10 @@ namespace SPAForum
         /// Creates a new member
         /// </summary>
         /// <param name="name">the members name</param>
+        /// <param name="email">the members email address</param>
         /// <param name="password">the members password</param>
         /// <returns>returns if the member was created</returns>
-        public bool createMember(string name, string password) {
+        public bool createMember(string name, string email, string password) {
             using (ist331Entities entities = new ist331Entities()) {
                 try {
                     member mem = new member();
@@ -82,15 +83,19 @@ namespace SPAForum
                     mem.member_group_id = 1;
                     mem.name = name;
                     mem.password_hash = SHA1HashStringForUTF8String(password);
+                    mem.email = email;
+                    mem.banned = 0;
 
                     entities.members.Add(mem);
                     entities.SaveChanges();
+
+                    return true;
                 }
-                catch {
+                catch (Exception ex){
+                    Console.WriteLine(ex.ToString());
                     return false;
                 }
             }
-            return true;
         }
 
 
