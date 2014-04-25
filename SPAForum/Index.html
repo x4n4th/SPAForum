@@ -46,7 +46,7 @@
                                             <div class="col-md-1"><div class="avatar" style="background-image: url(https://treehouse-uploads.s3.amazonaws.com/production/profile-photos/732612/treehouse.jpg)"></div></div>
                                             <div class="col-xs-12 col-md-8">
                                                 <!--<h5 onclick="setState('Topics')">{{forum.name}}</h5>-->
-                                                <a href="#Topics">{{forum.name}}</a>
+                                                <a href="#Topics?forum={{forum.id}}">{{forum.name}}</a>
                                                 <p>{{forum.description}}</p>
                                             </div>
                                         </div>
@@ -78,8 +78,8 @@
     <!----------------->
     <!-- Topics Menu -->
     <!----------------->
-    <div class="container" id="stateTopics" style="display: none;">
-        <div class="panel-group" id="accordion">
+    <div class="container" id="stateTopics" style="display: none;" data-ng-controller="loadTopics" data-ng-init="init()">
+        <div class="panel-group" id="accordion" ng-repeat="topic in topics">
             <div class="panel panel-default" id="panel1">
                 <div class="panel-heading">
                     <h4 class="panel-title">
@@ -97,8 +97,8 @@
                                     <li>
                                         <div class="row">
                                             <div class="col-xs-12 col-md-8">
-                                                <h5>HTML/CSS</h5>
-                                                <p>Everything you need to know about html/css</p>
+                                                <h5>{{topic.title}}</h5>
+                                                <p>We might implement summaries</p>
                                             </div>
                                         </div>
                                     </li>
@@ -112,7 +112,7 @@
                                                 <h5> Replies</h5>
                                                 <p> Date</p>
                                                 <h5>Views</h5>
-                                                <p>Author</p>
+                                                <p>Author: {{topic.starter_id}}</p>
                                             </div>
                                         </div>
                                     </li>
@@ -196,10 +196,11 @@
     <script>
         location.hash = 'Index';
         states = ['Index', 'Topics'];
+        var chosenForum;
 
         $(window).bind('hashchange', function (event) {
             var hash = location.hash.replace('#', '');
-            console.log(hash);
+            //var hash = location.hash;
             setState(hash);
         });
 
@@ -231,6 +232,20 @@
                     });
             }
         }
+        function loadTopics($scope) {
+
+            $scope.init = function (forum) {
+                var query = "/RestService.svc/getTopics?forum=" + 1;
+                $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
+                    .done(function (json) {
+                        $scope.topics = json;
+                        $scope.$apply();
+                    })
+                    .fail(function () {
+                        alert("Error");
+                    });
+            }
+        }
         function login($scope) {
             $scope.submit = function () {
                 var query = "/RESTService.svc/verify?user=" + $scope.userName + "&password=" + $scope.password;
@@ -251,9 +266,16 @@
         }
 
         function setState(state) {
+            location.hash = state;
+            loc = state.indexOf('?')
+            console.log(loc);
+            if (loc != -1) {
+                state = state.substring(0, loc);
+            } 
+
             hideAll();
             if ($.inArray(state, states)) {
-                location.hash = state;
+                
                 $('#state' + state).show();
             } else {
                 $('#stateIndex').show();
