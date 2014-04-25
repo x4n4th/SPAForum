@@ -57,6 +57,9 @@
           <Property Name="starter_id" Type="int" Nullable="false" />
           <Property Name="start_date" Type="datetime" Nullable="false" />
           <Property Name="forum_id" Type="int" Nullable="false" />
+          <Property Name="starter_name" Type="nchar" MaxLength="256" />
+          <Property Name="views" Type="int" Nullable="false" />
+          <Property Name="replies" Type="int" Nullable="false" />
         </EntityType>
         <EntityContainer Name="ist331ModelStoreContainer">
           <EntitySet Name="catagories" EntityType="Self.catagories" Schema="dbo" store:Type="Tables" />
@@ -122,6 +125,9 @@
           <Property Name="starter_id" Type="Int32" Nullable="false" />
           <Property Name="start_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="forum_id" Type="Int32" Nullable="false" />
+          <Property Name="starter_name" Type="String" MaxLength="256" FixedLength="true" Unicode="true" />
+          <Property Name="views" Type="Int32" Nullable="false" />
+          <Property Name="replies" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="catagories" EntityType="Self.catagory" />
@@ -191,6 +197,9 @@
                 <ScalarProperty Name="starter_id" ColumnName="starter_id" />
                 <ScalarProperty Name="start_date" ColumnName="start_date" />
                 <ScalarProperty Name="forum_id" ColumnName="forum_id" />
+                <ScalarProperty Name="starter_name" ColumnName="starter_name" />
+                <ScalarProperty Name="views" ColumnName="views" />
+                <ScalarProperty Name="replies" ColumnName="replies" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

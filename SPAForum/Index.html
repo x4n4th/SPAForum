@@ -79,15 +79,8 @@
     <!-- Topics Menu -->
     <!----------------->
     <div class="container" id="stateTopics" style="display: none;" data-ng-controller="loadTopics" data-ng-init="init()">
-        <div class="panel-group" id="accordion" ng-repeat="topic in topics">
-            <div class="panel panel-default" id="panel1">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-target="#collapse"
-                           href="#collapse">
-                            Topic
-                        </a>
-                    </h4>
+        <div class="" id="accordion" ng-repeat="topic in topics">
+            <div class="" id="panel1">
                 </div>
                 <div id="collapse" class="panel-collapse collapse in">
                     <div class="panel-body">
@@ -109,9 +102,9 @@
                                     <li>
                                         <div class="row">
                                             <div class="col-xs-6 col-md-8 col-topic">
-                                                <h5> Replies</h5>
-                                                <p> Date</p>
-                                                <h5>Views</h5>
+                                                <h5>Replies: {{topic.replies}}</h5>
+                                                <p> Date:</p>
+                                                <h5>Views: {{topic.views}}</h5>
                                                 <p>Author: {{topic.starter_id}}</p>
                                             </div>
                                         </div>

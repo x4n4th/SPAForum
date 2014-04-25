@@ -20,5 +20,8 @@ namespace SPAForum
         public int starter_id { get; set; }
         public System.DateTime start_date { get; set; }
         public int forum_id { get; set; }
+        public string starter_name { get; set; }
+        public int views { get; set; }
+        public int replies { get; set; }
     }
 }
