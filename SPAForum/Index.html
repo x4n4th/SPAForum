@@ -46,7 +46,7 @@
                                             <div class="col-md-1"><div class="avatar" style="background-image: url(https://treehouse-uploads.s3.amazonaws.com/production/profile-photos/732612/treehouse.jpg)"></div></div>
                                             <div class="col-xs-12 col-md-8">
                                                 <!--<h5 onclick="setState('Topics')">{{forum.name}}</h5>-->
-                                                <a href="#Topics?forum={{forum.id}}">{{forum.name}}</a>
+                                                <a ng-click='go(forum)' href="#Topics?forum={{forum.id}}">{{forum.name}}</a>
                                                 <p>{{forum.description}}</p>
                                             </div>
                                         </div>
@@ -204,6 +204,7 @@
             setState(hash);
         });
 
+
         function loadCatagories($scope) {
 
             $scope.init = function () {
@@ -218,7 +219,7 @@
                     });
             }
         }
-        function loadForums($scope) {
+        function loadForums($scope, $rootScope) {
 
             $scope.init = function (catagory) {
                 var query = "/RestService.svc/getforums?catId=" + catagory.id;
@@ -231,11 +232,14 @@
                         alert("Error");
                     });
             }
+            $scope.go = function (forum) {
+            
+                $rootScope.$broadcast('loadTopic', forum);
+            }
         }
-        function loadTopics($scope) {
-
-            $scope.init = function (forum) {
-                var query = "/RestService.svc/getTopics?forum=" + chosenForum;
+        function loadTopics($scope, $rootScope) {
+            $rootScope.$on('loadTopic', function (stuff, forum) {
+                var query = "/RestService.svc/getTopics?forum=" + forum.id;
                 $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
                     .done(function (json) {
                         $scope.topics = json;
@@ -244,7 +248,7 @@
                     .fail(function () {
                         alert("Error");
                     });
-            }
+            });
         }
         function login($scope) {
             $scope.submit = function () {
@@ -270,9 +274,15 @@
             loc = state.indexOf('?')
             console.log(loc);
             if (loc != -1) {
-                state = state.substring(0, loc);
 
-                query = state.substring(loc, state.length)
+                query = state.substring(loc + 1, state.length)
+                state = state.substring(0, loc);
+                console.log(query.indexOf("forum="));
+                if (query.indexOf("forum=") > -1) {
+                    forumId = query.substring(query.indexOf("forum=") + 6, query.length);
+                    console.log(forumId);
+                }
+
                 console.log(query);
             } 
 
