@@ -196,7 +196,7 @@
     <script>
         location.hash = 'Index';
         states = ['Index', 'Topics'];
-        var chosenForum;
+        var chosenForum = 1;
 
         $(window).bind('hashchange', function (event) {
             var hash = location.hash.replace('#', '');
@@ -235,7 +235,7 @@
         function loadTopics($scope) {
 
             $scope.init = function (forum) {
-                var query = "/RestService.svc/getTopics?forum=" + 1;
+                var query = "/RestService.svc/getTopics?forum=" + chosenForum;
                 $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
                     .done(function (json) {
                         $scope.topics = json;
@@ -271,6 +271,9 @@
             console.log(loc);
             if (loc != -1) {
                 state = state.substring(0, loc);
+
+                query = state.substring(loc, state.length)
+                console.log(query);
             } 
 
             hideAll();
