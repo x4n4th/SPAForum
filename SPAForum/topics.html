@@ -5,6 +5,8 @@
     <!--Using a content delivery network - watch if they go down so does your site-->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link href="summernote.css" rel="stylesheet" />
+    <script src="summernote.js"></script>
     <link href="custom.css" rel="stylesheet" />
 </head>
 
@@ -14,7 +16,7 @@
             <nav class="nav">
                 <a class="nav-item active" href="#">Home</a>
                 <a class="nav-item" href="#">About</a>
-                <p class="nav-item" data-toggle="modal" data-target="#logoutModal"><a href="#">Log-out</a></p>
+                <button type="submit" class="btn btn-success nav-item " data-toggle="modal" data-target="#newPostModal">New Post</button>
                 <form class="navbar-form navbar-right">
                     <input type="text" class="form-control" placeholder="Search...">
                 </form>
@@ -74,6 +76,29 @@
             <a href="#">Back to top</a>
         </p>
     </div><!--Footer Ending -->
+
+    <div id="newPostModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- dialog body -->
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="modal-header"> <h2>New Post </h2> </div>
+                    <form class="" role="form">
+                        <div id="summernote">Hello Summernote</div>
+                        <!-- dialog buttons -->
+                        <button type="submit" class="btn btn-success">Post</button>
+                        <button type="submit" class="btn btn-danger" data-dismiss="modal">Cancle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+    $('#summernote').summernote();
+        });
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
     <script src="http://www.parsecdn.com/js/parse-1.2.12.min.js"></script>
