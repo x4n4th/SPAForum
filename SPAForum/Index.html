@@ -46,7 +46,7 @@
                                             <div class="col-md-1"><div class="avatar" style="background-image: url(https://treehouse-uploads.s3.amazonaws.com/production/profile-photos/732612/treehouse.jpg)"></div></div>
                                             <div class="col-xs-12 col-md-8">
                                                 <!--<h5 onclick="setState('Topics')">{{forum.name}}</h5>-->
-                                                <a ng-click='go(forum)' href="#Topics?forum={{forum.id}}">{{forum.name}}</a>
+                                                <a ng-click='go(forum)' href="#Topics">{{forum.name}}</a>
                                                 <p>{{forum.description}}</p>
                                             </div>
                                         </div>
@@ -271,20 +271,6 @@
 
         function setState(state) {
             location.hash = state;
-            loc = state.indexOf('?')
-            console.log(loc);
-            if (loc != -1) {
-
-                query = state.substring(loc + 1, state.length)
-                state = state.substring(0, loc);
-                console.log(query.indexOf("forum="));
-                if (query.indexOf("forum=") > -1) {
-                    forumId = query.substring(query.indexOf("forum=") + 6, query.length);
-                    console.log(forumId);
-                }
-
-                console.log(query);
-            } 
 
             hideAll();
             if ($.inArray(state, states)) {
