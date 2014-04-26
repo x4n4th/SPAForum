@@ -75,7 +75,7 @@ namespace SPAForum
                                  .Where(x => x.password_hash == hashedPassword) 
                              select s;
 
-                if (member != null) {
+                if (member.Count() > 0) {
                     return true;
                 }
             }

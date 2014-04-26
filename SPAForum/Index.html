@@ -14,8 +14,15 @@
             <nav class="nav">
                 <a class="nav-item active" href="#Index">Home</a>
                 <a class="nav-item" href="#">About</a>
-                <p class="nav-item" data-toggle="modal" data-target="#loginModal"><a href="#">Sign In</a></p>
-                <p class="nav-item" data-toggle="modal" data-target="#Reg"><a href="#">Register</a></p>  
+                <span id="loginRegister">
+                    <p class="nav-item" data-toggle="modal" data-target="#loginModal"><a href="#">Sign In</a></p>
+                    <p class="nav-item" data-toggle="modal" data-target="#Reg"><a href="#">Register</a></p>  
+                </span>
+                <span id="userLoggedIn" style="display:none" data-ng-controller="userLogged" data-ng-init="init()">
+                    <p class="nav-item" data-toggle="modal" data-target=""><a href="#User">Welcome {{name}} </a></p>
+                    <p class="nav-item" data-toggle="modal" data-target=""><a href="#User">Logout</a></p>   
+                </span>
+               
                 <form class="navbar-form navbar-right">
                     <input type="text" class="form-control" placeholder="Search...">
                 </form>
@@ -103,7 +110,7 @@
                                         <div class="row">
                                             <div class="col-xs-6 col-md-8 col-topic">
                                                 <h5>Replies: {{topic.replies}}</h5>
-                                                <p> Date:</p>
+                                                <p> Date: <!--{{topic.start_date | date : 'medium'}}--></p>
                                                 <h5>Views: {{topic.views}}</h5>
                                                 <p>Author: {{topic.starter_id}}</p>
                                             </div>
@@ -230,6 +237,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script>
+        var app = angular.module('myApp', []);
+
         location.hash = 'Index';
         states = ['Index', 'Topics', 'Posts'];
         var chosenForum = 1;
@@ -239,7 +248,6 @@
             //var hash = location.hash;
             setState(hash);
         });
-
 
         function loadCatagories($scope) {
 
@@ -303,17 +311,29 @@
                     });
             });
         }
-        function login($scope) {
+        function login($scope, $rootScope) {
             $scope.submit = function () {
                 var query = "/RESTService.svc/verify?user=" + $scope.userName + "&password=" + $scope.password;
                 $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
                     .done(function (json) {
                         console.log(json);
+                        if (json == true) {
+                            $rootScope.$broadcast('userLoggedIn', $scope.userName);
+                        }
                     })
                     .fail(function () {
                         alert("Error");
                     });
             }
+        }
+        function userLogged($scope, $rootScope) {
+            $rootScope.$on('userLoggedIn', function (stuff, name) {
+                $('#userLoggedIn').show();
+                $('#loginRegister').hide();
+                
+                $scope.name = name;
+                $scope.$apply();
+            });
         }
 
         function hideAll() {
