@@ -20,6 +20,13 @@ namespace SPAForum
         public post[] getPosts(int topicId){
             using(ist331Entities entities = new ist331Entities()){
                 var posts = from s in entities.posts.Where(x=>x.topic_id == topicId) select s;
+
+                topic chosenTopic = entities.topics.Find(topicId);
+               
+                chosenTopic.views += 1;
+
+                entities.SaveChanges();
+
                 return posts.ToArray();
             }
         }
