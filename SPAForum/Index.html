@@ -90,7 +90,7 @@
                                     <li>
                                         <div class="row">
                                             <div class="col-xs-12 col-md-8">
-                                                <h5>{{topic.title}}</h5>
+                                                <a ng-click='go(topic)' href="#Posts">{{topic.title}}</a>
                                                 <p>We might implement summaries</p>
                                             </div>
                                         </div>
@@ -119,6 +119,49 @@
     </div><!--Container Ending -->
     <!--------------------->
     <!-- END Topics Menu -->
+    <!--------------------->
+
+    <!----------------->
+    <!-- Posts Menu -->
+    <!----------------->
+    <div class="container" id="statePosts" style="display: none;" data-ng-controller="loadPosts" data-ng-init="init()">
+        <div class="" id="accordion" ng-repeat="post in posts">
+            <div class="" id="panel1">
+            </div>
+            <div id="collapse" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4 last-post">
+                            <ul>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-6 col-md-8 col-topic">
+                                            <p>Author: {{post.author_name}}</p>
+                                            <p>Date: </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-8 topic-list">
+                            <ul>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-8">
+                                            <p>{{post.post1}}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!--Panel Ending -->
+    </div><!--Container Ending -->
+    <!--------------------->
+    <!-- END Posts Menu -->
     <!--------------------->
 
     <!--Login Modal-->
@@ -188,7 +231,7 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script>
         location.hash = 'Index';
-        states = ['Index', 'Topics'];
+        states = ['Index', 'Topics', 'Posts'];
         var chosenForum = 1;
 
         $(window).bind('hashchange', function (event) {
@@ -236,6 +279,23 @@
                 $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
                     .done(function (json) {
                         $scope.topics = json;
+                        $scope.$apply();
+                    })
+                    .fail(function () {
+                        alert("Error");
+                    });
+            });
+            $scope.go = function (topic) {
+
+                $rootScope.$broadcast('loadPost', topic);
+            }
+        }
+        function loadPosts($scope, $rootScope) {
+            $rootScope.$on('loadPost', function (stuff, topic) {
+                var query = "/RestService.svc/getPosts?topic=" + topic.tid;
+                $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
+                    .done(function (json) {
+                        $scope.posts = json;
                         $scope.$apply();
                     })
                     .fail(function () {
