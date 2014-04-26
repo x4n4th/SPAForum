@@ -47,6 +47,15 @@
           <Property Name="post" Type="text" />
           <Property Name="topic_id" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="session">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="session" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="member_id" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="topics">
           <Key>
             <PropertyRef Name="tid" />
@@ -66,6 +75,7 @@
           <EntitySet Name="forums" EntityType="Self.forums" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="members" EntityType="Self.members" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="posts" EntityType="Self.posts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="session" EntityType="Self.session" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="topics" EntityType="Self.topics" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
@@ -115,6 +125,15 @@
           <Property Name="post1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="topic_id" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="session">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="session1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="member_id" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         <EntityType Name="topic">
           <Key>
             <PropertyRef Name="tid" />
@@ -134,6 +153,7 @@
           <EntitySet Name="forums" EntityType="Self.forum" />
           <EntitySet Name="members" EntityType="Self.member" />
           <EntitySet Name="posts" EntityType="Self.post" />
+          <EntitySet Name="sessions" EntityType="Self.session" />
           <EntitySet Name="topics" EntityType="Self.topic" />
         </EntityContainer>
       </Schema>
@@ -185,6 +205,16 @@
                 <ScalarProperty Name="post_date" ColumnName="post_date" />
                 <ScalarProperty Name="post1" ColumnName="post" />
                 <ScalarProperty Name="topic_id" ColumnName="topic_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sessions">
+            <EntityTypeMapping TypeName="ist331Model.session">
+              <MappingFragment StoreEntitySet="session">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="session1" ColumnName="session" />
+                <ScalarProperty Name="member_id" ColumnName="member_id" />
+                <ScalarProperty Name="date" ColumnName="date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -139,6 +139,9 @@
     <Compile Include="RestService.svc.cs">
       <DependentUpon>RestService.svc</DependentUpon>
     </Compile>
+    <Compile Include="session.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="topic.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

@@ -66,8 +66,8 @@ namespace SPAForum
         /// </summary>
         /// <param name="user">users name or login</param>
         /// <param name="password">password</param>
-        /// <returns>true if user is valid</returns>
-        public bool verifyUser(string user, string password) {
+        /// <returns>session string if user is valid</returns>
+        public string verifyUser(string user, string password) {
             using (ist331Entities entities = new ist331Entities()) {
                 string hashedPassword = SHA1HashStringForUTF8String(password);
                 var member = from s in entities.members
@@ -75,11 +75,37 @@ namespace SPAForum
                                  .Where(x => x.password_hash == hashedPassword) 
                              select s;
 
-                if (member.Count() > 0) {
-                    return true;
+
+                if (member.Count() == 1) {
+                    Random rnd = new Random();
+
+                    int sessionNumber = rnd.Next(0, 1000);
+                    string sessionStr = SHA1HashStringForUTF8String(sessionNumber.ToString());
+
+                    session dbSession = new session();
+
+                    foreach(member mem in member){
+                        dbSession.member_id = mem.id;
+                    }
+
+                    var sessions = from s in entities.sessions
+                                 .Where(x => x.member_id == dbSession.member_id)
+                                 select s;
+
+                    foreach (session sesh in sessions) {
+                        entities.sessions.Remove(sesh);
+                    }
+
+                    dbSession.date = DateTime.Now;
+                    dbSession.session1 = sessionStr;
+
+                    entities.sessions.Add(dbSession);
+                    entities.SaveChanges();
+
+                    return sessionStr;
                 }
             }
-            return false;
+            return "Not Valid";
         }
 
         /// <summary>

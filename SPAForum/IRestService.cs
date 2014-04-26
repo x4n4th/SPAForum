@@ -56,7 +56,7 @@ namespace SPAForum
         [WebGet(UriTemplate = "/verify?user={userName}&password={password}",
             ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
-        bool verifyUser(string userName, string password);
+        string verifyUser(string userName, string password);
 
         /// <summary>
         /// Creates a member with a user name and password
