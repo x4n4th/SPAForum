@@ -241,7 +241,7 @@
 
         location.hash = 'Index';
         states = ['Index', 'Topics', 'Posts'];
-        var chosenForum = 1;
+        var session;
 
         $(window).bind('hashchange', function (event) {
             var hash = location.hash.replace('#', '');
@@ -317,7 +317,8 @@
                 $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
                     .done(function (json) {
                         console.log(json);
-                        if (json == true) {
+                        if (json != 'Not Valid') {
+                            session = json;
                             $rootScope.$broadcast('userLoggedIn', $scope.userName);
                         }
                     })
