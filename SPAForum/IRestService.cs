@@ -85,5 +85,16 @@ namespace SPAForum
             ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
         bool createMember(string userName, string password);
+
+        /// <summary>
+        /// Loges the user out by removeing session key
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <param name="name"></param>
+        /// <returns>if the logout was successfull</returns>
+        [WebGet(UriTemplate = "/logout?session={sessionId}&name={name}",
+            ResponseFormat = WebMessageFormat.Json)]
+        [OperationContract]
+        bool logout(string sessionId, string name);
     }
 }

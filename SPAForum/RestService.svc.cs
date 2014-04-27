@@ -65,6 +65,49 @@ namespace SPAForum
             }
         }
 
+        /// <summary>
+        /// Removes users session id to log them out
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <param name="name"></param>
+        /// <returns>returns if logout was successful</returns>
+        public bool logout(string sessionId, string name) {
+            using (ist331Entities entities = new ist331Entities()) {
+                var members = entities.members.Where(x => x.name == name);
+                member suppliedMember = null;
+
+                foreach (member mem in members) {
+                    suppliedMember = mem;
+                }
+                
+                if(suppliedMember != null){
+                    var sessions = entities.sessions
+                        .Where(x => x.session1 == sessionId)
+                        .Where(x => x.member_id == suppliedMember.id);
+
+                    session sesh = null;
+                    foreach (session s in sessions) {
+                        sesh = s;
+                    }
+
+                    if (sessions.Count() > 0 && sesh != null) {
+                        entities.sessions.Remove(sesh);
+                        entities.SaveChanges();
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Post to a topic
+        /// </summary>
+        /// <param name="sessionId">Users session</param>
+        /// <param name="name">users name</param>
+        /// <param name="topicId">the topic</param>
+        /// <param name="postStr">The post</param>
+        /// <returns>if the post was successful</returns>
         public bool postToTopic(string sessionId, string name, int topicId, string postStr){
             using (ist331Entities entities = new ist331Entities()) {
                 var members = entities.members.Where(x => x.name == name);
@@ -75,7 +118,9 @@ namespace SPAForum
                 }
                 
                 if(suppliedMember != null){
-                    var sessions = entities.sessions.Where(x => x.session1 == sessionId).Where(x => x.member_id == suppliedMember.id);
+                    var sessions = entities.sessions
+                        .Where(x => x.session1 == sessionId)                               
+                        .Where(x => x.member_id == suppliedMember.id);
 
                     if (sessions.Count() > 0) {
 

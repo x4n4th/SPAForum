@@ -20,7 +20,7 @@
                 </span>
                 <span id="userLoggedIn" style="display:none" data-ng-controller="userLogged" data-ng-init="init()">
                     <p class="nav-item" data-toggle="modal" data-target=""><a href="#User">Welcome {{name}} </a></p>
-                    <p class="nav-item" data-toggle="modal" data-target=""><a href="#User">Logout</a></p>   
+                    <p class="nav-item" data-toggle="modal" onclick="logOut()" data-target=""><a href="#User">Logout</a></p>   
                 </span>
                
                 <form class="navbar-form navbar-right">
@@ -358,6 +358,26 @@
                     });
             }
         }
+
+        function logOut() {
+            $('#userLoggedIn').hide();
+            $('#loginRegister').show();
+
+            user = null;
+            session = null;
+
+            var query = "/RESTService.svc/logout?session=" + session + "&name=" + user;
+            console.log(query);
+            $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
+                .done(function (json) {
+                    console.log(json);
+
+                })
+                .fail(function () {
+                    alert("Error");
+                });
+        }
+
         function userLogged($scope, $rootScope) {
             $rootScope.$on('userLoggedIn', function (stuff, name) {
                 $('#userLoggedIn').show();
