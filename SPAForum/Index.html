@@ -251,6 +251,7 @@
         var session;
         var user;
         var topicId;
+        var topicObj;
 
         $(document).ready(function () {
             $('#summernote').summernote({ height: 300 });
@@ -315,7 +316,7 @@
             $rootScope.$on('loadPost', function (stuff, topic) {
                 var query = "/RestService.svc/getPosts?topic=" + topic.tid;
                 topicId = topic.tid;
-
+                topicObj = topic;
                 $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
                     .done(function (json) {
                         $scope.posts = json;
@@ -345,13 +346,13 @@
             }
         }
         function postToTopic($scope, $rootScope) {
-            $scope.submit = function () {
+            $scope.submit = function (topic) {
                 var query = "/RESTService.svc/post?session=" + session + "&name=" + user + "&topic=" + topicId + "&post=" + $scope.text;
                 console.log(query);
                 $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
                     .done(function (json) {
                         console.log(json);
-
+                        $rootScope.$broadcast('loadPost', topicObj);
                     })
                     .fail(function () {
                         alert("Error");
