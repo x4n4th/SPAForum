@@ -119,8 +119,7 @@ namespace SPAForum
                 
                 if(suppliedMember != null){
                     var sessions = entities.sessions
-                        .Where(x => x.session1 == sessionId)                               
-                        .Where(x => x.member_id == suppliedMember.id);
+                        .Where(x => x.session1 == sessionId && x.member_id == suppliedMember.id);
 
                     if (sessions.Count() > 0) {
 
@@ -157,12 +156,11 @@ namespace SPAForum
             using (ist331Entities entities = new ist331Entities()) {
                 string hashedPassword = SHA1HashStringForUTF8String(password);
                 var member = from s in entities.members
-                                 .Where(x => x.name == user)
-                                 .Where(x => x.password_hash == hashedPassword) 
+                                 .Where(x => x.password_hash == hashedPassword && x.name == user) 
                              select s;
 
 
-                if (member.Count() == 1) {
+                if (member.Count() >= 1) {
                     Random rnd = new Random();
 
                     int sessionNumber = rnd.Next(0, 999999999);
@@ -217,6 +215,28 @@ namespace SPAForum
                 }
             }
             return true;
+        }
+
+        public bool register(string username, string email, string rawPassword) {
+            using (ist331Entities entities = new ist331Entities()) {
+                try {
+                    member newMember = new member();
+
+                    newMember.email = email;
+                    newMember.banned = 0;
+                    newMember.joined = DateTime.Now;
+                    newMember.member_group_id = 0;
+                    newMember.name = username;
+                    newMember.password_hash = SHA1HashStringForUTF8String(rawPassword);
+
+                    entities.members.Add(newMember);
+                    entities.SaveChanges();
+                    return true;
+                }
+                catch {
+                    return false;
+                }
+            }
         }
 
 

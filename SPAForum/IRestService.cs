@@ -96,5 +96,17 @@ namespace SPAForum
             ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
         bool logout(string sessionId, string name);
+
+        /// <summary>
+        /// Resgisters a new username
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="email"></param>
+        /// <param name="rawPassword"></param>
+        /// <returns>if the username was create successfully.</returns>
+        [WebGet(UriTemplate = "/register?name={username}&email={email}&password={rawPassword}",
+            ResponseFormat = WebMessageFormat.Json)]
+        [OperationContract]
+        bool register(string username, string email, string rawPassword);
     }
 }
