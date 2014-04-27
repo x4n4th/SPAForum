@@ -367,6 +367,7 @@
                 $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
                     .done(function (json) {
                         console.log(json);
+                        $('#Reg').modal("hide");
                     })
                     .fail(function () {
                         alert("Error");
