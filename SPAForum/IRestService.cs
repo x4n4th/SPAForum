@@ -42,6 +42,23 @@ namespace SPAForum
         [OperationContract]
         forum[] getForums(int catId);
 
+        /// <summary>
+        /// Posts a post to a certain topic
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <param name="name"></param>
+        /// <param name="topicId"></param>
+        /// <param name="postStr"></param>
+        /// <returns></returns>
+        [WebGet(UriTemplate = "/post?session={sessionId}&name={name}&topic={topicId}&post={postStr}",
+            ResponseFormat = WebMessageFormat.Json)]
+        [OperationContract]
+        bool postToTopic(string sessionId, string name, int topicId, string postStr);
+
+        /// <summary>
+        /// Get all catagories
+        /// </summary>
+        /// <returns></returns>
         [WebGet(UriTemplate = "/getCatagories",
             ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]

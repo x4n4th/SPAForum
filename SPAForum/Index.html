@@ -112,7 +112,7 @@
                                                 <h5>Replies: {{topic.replies}}</h5>
                                                 <p> Date: <!--{{topic.start_date | date : 'medium'}}--></p>
                                                 <h5>Views: {{topic.views}}</h5>
-                                                <p>Author: {{topic.starter_id}}</p>
+                                                <p>Author: {{topic.starter_name}}</p>
                                             </div>
                                         </div>
                                     </li>
@@ -165,6 +165,12 @@
                 </div>
             </div>
         </div>
+        <form id="postForm" data-ng-controller="postToTopic" data-ng-submit="submit()">
+            <textarea name="" id="summernote" rows="10" class="form-control" ng-model="text"></textarea>
+            <!-- dialog buttons -->
+            <button type="submit" class="btn btn-success">Post</button>
+            <button type="submit" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        </form>
     </div> <!--Panel Ending -->
     </div><!--Container Ending -->
     <!--------------------->
@@ -241,7 +247,14 @@
 
         location.hash = 'Index';
         states = ['Index', 'Topics', 'Posts'];
+
         var session;
+        var user;
+        var topicId;
+
+        $(document).ready(function () {
+            $('#summernote').summernote({ height: 300 });
+        });
 
         $(window).bind('hashchange', function (event) {
             var hash = location.hash.replace('#', '');
@@ -301,6 +314,8 @@
         function loadPosts($scope, $rootScope) {
             $rootScope.$on('loadPost', function (stuff, topic) {
                 var query = "/RestService.svc/getPosts?topic=" + topic.tid;
+                topicId = topic.tid;
+
                 $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
                     .done(function (json) {
                         $scope.posts = json;
@@ -318,9 +333,24 @@
                     .done(function (json) {
                         console.log(json);
                         if (json != 'Not Valid') {
+                            user = $scope.userName;
                             session = json;
                             $rootScope.$broadcast('userLoggedIn', $scope.userName);
                         }
+                    })
+                    .fail(function () {
+                        alert("Error");
+                    });
+            }
+        }
+        function postToTopic($scope, $rootScope) {
+            $scope.submit = function () {
+                var query = "/RESTService.svc/post?session=" + session + "&name=" + user + "&topic=" + topicId + "&post=" + $scope.text;
+                console.log(query);
+                $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
+                    .done(function (json) {
+                        console.log(json);
+
                     })
                     .fail(function () {
                         alert("Error");

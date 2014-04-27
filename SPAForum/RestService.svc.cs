@@ -54,10 +54,51 @@ namespace SPAForum
             }
         }
 
+        /// <summary>
+        /// Gets a list of all catagories
+        /// </summary>
+        /// <returns>catagory list</returns>
         public catagory[] getCatagories() {
             using (ist331Entities entities = new ist331Entities()) {
                 var catagories = from s in entities.catagories select s;
                 return catagories.ToArray();
+            }
+        }
+
+        public bool postToTopic(string sessionId, string name, int topicId, string postStr){
+            using (ist331Entities entities = new ist331Entities()) {
+                var members = entities.members.Where(x => x.name == name);
+                member suppliedMember = null;
+
+                foreach (member mem in members) {
+                    suppliedMember = mem;
+                }
+                
+                if(suppliedMember != null){
+                    var sessions = entities.sessions.Where(x => x.session1 == sessionId).Where(x => x.member_id == suppliedMember.id);
+
+                    if (sessions.Count() > 0) {
+
+                        post newPost = new post();
+
+                        newPost.author_name = name;
+                        newPost.author_id = suppliedMember.id;
+                        newPost.post_date = DateTime.Now;
+                        newPost.post1 = postStr;
+                        newPost.topic_id = topicId;
+
+                        entities.posts.Add(newPost);
+
+                        topic chosenTopic = entities.topics.Find(topicId);
+                        chosenTopic.replies += 1;
+
+                        entities.SaveChanges();
+
+                        return true;
+                    }
+                }
+
+                return false;
             }
         }
 
@@ -79,7 +120,7 @@ namespace SPAForum
                 if (member.Count() == 1) {
                     Random rnd = new Random();
 
-                    int sessionNumber = rnd.Next(0, 1000);
+                    int sessionNumber = rnd.Next(0, 999999999);
                     string sessionStr = SHA1HashStringForUTF8String(sessionNumber.ToString());
 
                     session dbSession = new session();
