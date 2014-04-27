@@ -353,6 +353,7 @@
                     .done(function (json) {
                         console.log(json);
                         $rootScope.$broadcast('loadPost', topicObj);
+                        $scope.text = "";
                     })
                     .fail(function () {
                         alert("Error");
