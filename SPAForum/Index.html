@@ -335,6 +335,7 @@
                         if (json != 'Not Valid') {
                             user = $scope.userName;
                             session = json;
+                            $('#loginModal').modal("hide");
                             $rootScope.$broadcast('userLoggedIn', $scope.userName);
                         }
                     })
