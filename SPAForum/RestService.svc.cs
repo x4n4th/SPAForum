@@ -217,6 +217,13 @@ namespace SPAForum
             return true;
         }
 
+        /// <summary>
+        /// Registers a new user 
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="email"></param>
+        /// <param name="rawPassword"></param>
+        /// <returns>returns if the user was registered</returns>
         public bool register(string username, string email, string rawPassword) {
             using (ist331Entities entities = new ist331Entities()) {
                 try {
