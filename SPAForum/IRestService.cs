@@ -55,7 +55,16 @@ namespace SPAForum
         [OperationContract]
         bool postToTopic(string sessionId, string name, int topicId, string postStr);
         
-
+        /// <summary>
+        /// Create a new topic and the first post for the topic
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <param name="name"></param>
+        /// <param name="forumId"></param>
+        /// <param name="title"></param>
+        /// <param name="description"></param>
+        /// <param name="post"></param>
+        /// <returns>If the topic was created properly</returns>
         [WebGet(UriTemplate = "/postTopic?session={sessionId}&name={name}&topic={forumId}&title={title}&desc={description}&post={post}",
             ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]

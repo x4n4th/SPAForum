@@ -146,6 +146,16 @@ namespace SPAForum
             }
         }
 
+        /// <summary>
+        /// Create a new topic and the first post for the topic
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <param name="name"></param>
+        /// <param name="forumId"></param>
+        /// <param name="title"></param>
+        /// <param name="description"></param>
+        /// <param name="post"></param>
+        /// <returns>If the topic was created properly</returns>
         public bool postTopic(string sessionId, string name, int forumId, string title, string description, string post) {
             using (ist331Entities entities = new ist331Entities()) {
                 var members = entities.members.Where(x => x.name == name);
