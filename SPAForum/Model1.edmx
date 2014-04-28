@@ -69,6 +69,7 @@
           <Property Name="starter_name" Type="nchar" MaxLength="256" />
           <Property Name="views" Type="int" Nullable="false" />
           <Property Name="replies" Type="int" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="ist331ModelStoreContainer">
           <EntitySet Name="catagories" EntityType="Self.catagories" Schema="dbo" store:Type="Tables" />
@@ -147,6 +148,7 @@
           <Property Name="starter_name" Type="String" MaxLength="256" FixedLength="true" Unicode="true" />
           <Property Name="views" Type="Int32" Nullable="false" />
           <Property Name="replies" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="catagories" EntityType="Self.catagory" />
@@ -230,6 +232,7 @@
                 <ScalarProperty Name="starter_name" ColumnName="starter_name" />
                 <ScalarProperty Name="views" ColumnName="views" />
                 <ScalarProperty Name="replies" ColumnName="replies" />
+                <ScalarProperty Name="description" ColumnName="description" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

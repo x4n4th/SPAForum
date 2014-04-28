@@ -146,6 +146,57 @@ namespace SPAForum
             }
         }
 
+        public bool postTopic(string sessionId, string name, int forumId, string title, string description, string post) {
+            using (ist331Entities entities = new ist331Entities()) {
+                var members = entities.members.Where(x => x.name == name);
+                member suppliedMember = null;
+
+                foreach (member mem in members) {
+                    suppliedMember = mem;
+                }
+
+                if (suppliedMember != null) {
+                    var sessions = entities.sessions
+                        .Where(x => x.session1 == sessionId && x.member_id == suppliedMember.id);
+
+                    if (sessions.Count() > 0) {
+
+                        topic newTopic = new topic();
+
+                        newTopic.replies = 0;
+                        newTopic.start_date = DateTime.Now;
+                        newTopic.forum_id = forumId;
+                        newTopic.starter_id = suppliedMember.id;
+                        newTopic.starter_name = name;
+                        newTopic.title = title;
+                        newTopic.views = 0;
+                        newTopic.description = description;
+                        newTopic.state = "open";
+
+                        entities.topics.Add(newTopic);
+
+                        entities.SaveChanges();
+
+
+                        post newPost = new post();
+                        newPost.author_name = name;
+                        newPost.author_id = suppliedMember.id;
+                        newPost.post_date = DateTime.Now;
+                        newPost.post1 = post;
+                        newPost.topic_id = newTopic.tid;
+
+                        entities.posts.Add(newPost);
+
+                        entities.SaveChanges();
+
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+        }
+
         /// <summary>
         /// Checks to see if the user is valid
         /// </summary>

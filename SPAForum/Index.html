@@ -86,6 +86,10 @@
     <!-- Topics Menu -->
     <!----------------->
     <div class="container" id="stateTopics" style="display: none;" data-ng-controller="loadTopics" data-ng-init="init()">
+        <div style="padding:10px;float:right;">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#newTopicModal">New Topic</button>
+        </div>
+
         <div class="" id="accordion" ng-repeat="topic in topics">
             <div class="" id="panel1">
                 </div>
@@ -122,11 +126,48 @@
                     </div>
                 </div>
             </div>
+        <div style="padding: 10px; float: right;">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#newTopicModal">New Topic</button>
+        </div>
         </div> <!--Panel Ending -->
     </div><!--Container Ending -->
     <!--------------------->
     <!-- END Topics Menu -->
     <!--------------------->
+
+    <!--------------------->
+    <!-- New Topic Modal -->
+    <!--------------------->
+    <div id="newTopicModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- dialog body -->
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="modal-header"> <h3>New topic</h3> </div>
+                    <form class="" role="form" data-ng-submit="submit()" data-ng-controller="newTopic">
+                        <div class="modal-body">
+                            <label for="topicTitle">Title</label>
+                            <input name="" data-ng-model="topicTitle" id="topicTitle" class="form-control" />
+                            <label for="topicTitle">Description</label>
+                            <input name="" data-ng-model="topicSummary" id="topicSummary" class="form-control" />
+                            <label for="topicTitle">Post Body</label>
+                            <textarea name="" data-ng-model="postText" id="summernote" rows="10" class="form-control"></textarea>
+                        </div>
+
+                        <!-- dialog buttons -->
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Post</button>
+                            <button type="submit" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------------->
+    <!-- End New Topic Modal -->
+    <!------------------------->
 
     <!----------------->
     <!-- Posts Menu -->
@@ -168,8 +209,7 @@
         <form id="postForm" data-ng-controller="postToTopic" data-ng-submit="submit()">
             <textarea name="" id="summernote" rows="10" class="form-control" ng-model="text"></textarea>
             <!-- dialog buttons -->
-            <button type="submit" class="btn btn-success">Post</button>
-            <button type="submit" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-success">Submit</button>
         </form>
     </div> <!--Panel Ending -->
     </div><!--Container Ending -->
@@ -252,6 +292,7 @@
         var user;
         var topicId;
         var topicObj;
+        var forumObj;
 
         $(document).ready(function () {
             $('#summernote').summernote({ height: 300 });
@@ -297,6 +338,7 @@
         }
         function loadTopics($scope, $rootScope) {
             $rootScope.$on('loadTopic', function (stuff, forum) {
+                forumObj = forum;
                 var query = "/RestService.svc/getTopics?forum=" + forum.id;
                 $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
                     .done(function (json) {
@@ -310,6 +352,19 @@
             $scope.go = function (topic) {
 
                 $rootScope.$broadcast('loadPost', topic);
+            }
+        }
+        function newTopic($scope, $rootScope) {
+            $scope.submit = function () {
+            var query = "/RestService.svc/postTopic?session=" + session + "&name=" + user + "&topic=" + forumObj.id + "&title=" + $scope.topicTitle + "&desc=" + $scope.topicSummary + "&post=" + $scope.postText;
+                $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
+                    .done(function (json) {
+                        $rootScope.$broadcast('loadTopic', forumObj);
+                        $('#newTopicModal').modal("hide");
+                    })
+                    .fail(function () {
+                        alert("Error");
+                    });
             }
         }
         function loadPosts($scope, $rootScope) {

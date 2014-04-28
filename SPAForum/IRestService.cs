@@ -54,6 +54,12 @@ namespace SPAForum
             ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
         bool postToTopic(string sessionId, string name, int topicId, string postStr);
+        
+
+        [WebGet(UriTemplate = "/postTopic?session={sessionId}&name={name}&topic={forumId}&title={title}&desc={description}&post={post}",
+            ResponseFormat = WebMessageFormat.Json)]
+        [OperationContract]
+        bool postTopic(string sessionId, string name, int forumId, string title, string description, string post);
 
         /// <summary>
         /// Get all catagories

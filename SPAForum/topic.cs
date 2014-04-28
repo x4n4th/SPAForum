@@ -23,5 +23,6 @@ namespace SPAForum
         public string starter_name { get; set; }
         public int views { get; set; }
         public int replies { get; set; }
+        public string description { get; set; }
     }
 }
