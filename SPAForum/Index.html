@@ -19,7 +19,7 @@
                     <p class="nav-item" data-toggle="modal" data-target="#Reg"><a href="">Register</a></p>  
                 </span>
                 <span id="userLoggedIn" style="display:none" data-ng-controller="userLogged" data-ng-init="init()">
-                    <p class="nav-item" data-toggle="modal" data-target=""><a href="#User">Welcome {{name}} </a></p>
+                    <p class="nav-item" data-toggle="modal" data-target=""><a href="#Profile">Welcome {{name}} </a></p>
                     <p class="nav-item" data-toggle="modal" onclick="logOut()" data-target=""><a href="">Logout</a></p>   
                 </span>
                
@@ -114,7 +114,7 @@
                                         <div class="row">
                                             <div class="col-xs-6 col-md-8 col-topic">
                                                 <h5>Replies: {{topic.replies}}</h5>
-                                                <p> Date: <!--{{topic.start_date | FormatDate}}--></p>
+                                                <p> Date: {{1288323623006  | date:'short'}}</p>
                                                 <h5>Views: {{topic.views}}</h5>
                                                 <p>Author: {{topic.starter_name}}</p>
                                             </div>
@@ -217,6 +217,58 @@
     <!-- END Posts Menu -->
     <!--------------------->
 
+    <!------------------>
+    <!-- Profile Page -->
+    <!------------------>
+    <div style="padding:5px; display:none;" id="stateProfile" class="container" >
+        <div class="row fi">
+            <div class="col-md-4">
+                <img data-src="Images/default_user_Image.png" class="img-thumbnail" alt="200x200" src="Images/default_user_Image.png" style="width: 200px; height: 200px;">
+                <div style="padding-left: 40px; padding-top: 10px;"><span class="">Member</span></div>
+            </div>
+            <div class="col-md-4">
+                <div class="profile_content_main">
+                    <div class="user_info_cell">
+                        <h1 class="">
+                            <span class="">{{User}}</span>
+                        </h1>
+                        {{user.JoinDate}}<br>
+                        <span class="label label-success">Online</span>
+                        <span class="">Last Active Today, 08:31 PM</span>
+                    </div>
+                    <span class="" style="margin-bottom: 10px">
+                        <img src="http://devhackz.com/public/style_images/maxxdark344build1/star_off.png" alt="-" class="rate_img"><img src="http://devhackz.com/public/style_images/maxxdark344build1/star_off.png" alt="-" class="rate_img"><img src="http://devhackz.com/public/style_images/maxxdark344build1/star_off.png" alt="-" class="rate_img"><img src="http://devhackz.com/public/style_images/maxxdark344build1/star_off.png" alt="-" class="rate_img"><img src="http://devhackz.com/public/style_images/maxxdark344build1/star_off.png" alt="-" class="rate_img"><span id="rating_text" class=""></span>
+                    </span>
+                </div>
+                <ul class="ipsList_data">
+                    <li class="">
+                        <span class="row_title">Group</span>
+                        <span class="row_data"><span style=" color: #8AFB17; font-family:arial black ;">Group</span></span>
+                    </li>
+                    <li class="">
+                        <span class="row_title">Active Posts</span>
+                        <span class="row_data badge">0</span>
+                    </li>
+                    <li class="">
+                        <span class="row_title">Profile Views</span>
+                        <span class="row_data badge">57</span>
+                    </li>
+                    <li>
+                        <span class="row_title">Email</span>
+                        <span class="row_data ">Email</span>
+                    </li>
+                    <li>
+                        <span class="row_title">Country</span>
+                        <span class="row_data ">Country</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!---------------------->
+    <!-- END Profile Page -->
+    <!---------------------->
+
     <!--Login Modal-->
     <div id="loginModal" class="modal fade"> 
         <div class="modal-dialog">
@@ -286,7 +338,7 @@
         var app = angular.module('SPFApp', ['ngRoute', 'SPFControllers', 'SPFFilters']);
 
         location.hash = 'Index';
-        states = ['Index', 'Topics', 'Posts'];
+        states = ['Index', 'Topics', 'Posts', 'Profile'];
 
         var session;
         var user;
