@@ -224,3 +224,28 @@ width: 100px;
  margin-right: 5px;
 margin-top: -3px;
 }
+
+/*profile*/
+.profile_content_main {
+min-height: 75px;
+line-height: 1.3;
+margin-bottom: 20px;
+padding: 15px;
+border-radius: 4px;
+}
+.user_info_cell {
+display: table-cell;
+white-space: nowrap;
+padding-right: 15px;
+}
+
+
+.ipsList_data {
+    list-style: none;
+    margin-left: -20px;
+}
+
+.fi {
+    background-color: #f5f5f5;
+    padding: 15px;
+}

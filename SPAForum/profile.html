@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Bootstrap forum</title>
+    <!--Using a content delivery network - watch if they go down so does your site-->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link href="custom.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="masthead">
+        <div class="container">
+            <nav class="nav">
+                <a class="nav-item active" href="#Index">Home</a>
+                <a class="nav-item" href="#">About</a>
+                <span id="loginRegister">
+                    <p class="nav-item" data-toggle="modal" data-target="#loginModal"><a href="">Sign In</a></p>
+                    <p class="nav-item" data-toggle="modal" data-target="#Reg"><a href="">Register</a></p>
+                </span>
+                <span id="userLoggedIn" style="display:none" data-ng-controller="userLogged" data-ng-init="init()">
+                    <p class="nav-item" data-toggle="modal" data-target=""><a href="#User">Welcome {{name}} </a></p>
+                    <p class="nav-item" data-toggle="modal" onclick="logOut()" data-target=""><a href="">Logout</a></p>
+                </span>
+
+                <form class="navbar-form navbar-right">
+                    <!--<input type="text" class="form-control" placeholder="Search...">-->
+                </form>
+            </nav>
+        </div>
+    </div>
+        <div style="padding:5px;" id="stateIndex" class="container" data-ng-controller="loadCatagories" data-ng-init="init()">
+            <div class="row fi">
+                <div class="col-md-4">
+                    <img data-src="Images/default_user_Image.png" class="img-thumbnail" alt="200x200" src="Images/default_user_Image.png" style="width: 200px; height: 200px;">
+                    <div style="padding-left: 40px; padding-top: 10px;"><span class="">{{Member Role}}</span></div>
+                </div>
+                     <div class="col-md-4">
+                        <div class="profile_content_main">
+                            <div class="user_info_cell">
+                                <h1 class="">
+                                    <span class="">{{User}}</span>
+                                </h1>
+                                {{user.JoinDate}}<br>
+                                <span class="label label-success">Online</span>
+                                <span class="">Last Active Today, 08:31 PM</span>
+                            </div>
+                            <span class="" style="margin-bottom: 10px">
+                                <img src="http://devhackz.com/public/style_images/maxxdark344build1/star_off.png" alt="-" class="rate_img"><img src="http://devhackz.com/public/style_images/maxxdark344build1/star_off.png" alt="-" class="rate_img"><img src="http://devhackz.com/public/style_images/maxxdark344build1/star_off.png" alt="-" class="rate_img"><img src="http://devhackz.com/public/style_images/maxxdark344build1/star_off.png" alt="-" class="rate_img"><img src="http://devhackz.com/public/style_images/maxxdark344build1/star_off.png" alt="-" class="rate_img"><span id="rating_text" class=""></span>
+                            </span>
+                        </div>
+                         <ul class="ipsList_data">
+                             <li class="">
+                                 <span class="row_title">Group</span>
+                                 <span class="row_data"><span style=" color: #8AFB17; font-family:arial black ;">{{Menber Ship Type}}</span></span>
+                             </li>
+                             <li class="">
+                                 <span class="row_title">Active Posts</span>
+                                 <span class="row_data badge pull-right">0</span>
+                             </li>
+                             <li class="">
+                                 <span class="row_title">Profile Views</span>
+                                 <span class="row_data badge pull-right">57</span>
+                             </li>
+                             <li>
+                                 <span class="row_title">Email</span>
+                                 <span class="row_data ">{{user.Email}}</span>
+                             </li>
+                             <li>
+                                 <span class="row_title">Country</span>
+                                 <span class="row_data ">{{user.Contry}}</span>
+                             </li>
+                         </ul>
+                    </div>
+                </div> 
+    </div>
+    <div class="footer">
+        <p>Bulit by Team 6</p>
+        <p>
+            <a href="#">Back to top</a>
+        </p>
+    </div><!--Footer Ending -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
