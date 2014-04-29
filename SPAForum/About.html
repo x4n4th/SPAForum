@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Bootstrap forum</title>
+    <!--Using a content delivery network - watch if they go down so does your site-->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link href="custom.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="masthead">
+        <div class="container">
+            <nav class="nav">
+                <a class="nav-item active" href="#Index">Home</a>
+                <a class="nav-item" href="#">About</a>
+                <span id="loginRegister">
+                    <p class="nav-item" data-toggle="modal" data-target="#loginModal"><a href="">Sign In</a></p>
+                    <p class="nav-item" data-toggle="modal" data-target="#Reg"><a href="">Register</a></p>
+                </span>
+                <span id="userLoggedIn" style="display:none" data-ng-controller="userLogged" data-ng-init="init()">
+                    <p class="nav-item" data-toggle="modal" data-target=""><a href="#User">Welcome {{name}} </a></p>
+                    <p class="nav-item" data-toggle="modal" onclick="logOut()" data-target=""><a href="">Logout</a></p>
+                </span>
+
+                <form class="navbar-form navbar-right">
+                    <!--<input type="text" class="form-control" placeholder="Search...">-->
+                </form>
+            </nav>
+        </div>
+    </div>
+    <div style="padding:5px;" id="#about" class="container" data-ng-controller="loadCatagories" data-ng-init="init()">
+        <h2>About </h2>
+        <p> This is a single page froum </p>
+    </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+</body>
+</html>

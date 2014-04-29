@@ -72,6 +72,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="About.html" />
     <Content Include="custom.css" />
     <Content Include="Images\default_user_Image.png" />
     <Content Include="Index.html" />
@@ -101,7 +102,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="profile.html" />
+    <Content Include="Profile.html" />
     <Content Include="RestService.svc" />
     <Content Include="summernote.css" />
     <Content Include="summernote.js" />
