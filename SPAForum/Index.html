@@ -114,7 +114,7 @@
                                         <div class="row">
                                             <div class="col-xs-6 col-md-8 col-topic">
                                                 <h5>Replies: {{topic.replies}}</h5>
-                                                <p> Date: <!--{{topic.start_date | date : 'medium'}}--></p>
+                                                <p> Date: <!--{{topic.start_date | FormatDate}}--></p>
                                                 <h5>Views: {{topic.views}}</h5>
                                                 <p>Author: {{topic.starter_name}}</p>
                                             </div>
@@ -283,7 +283,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script>
-        var app = angular.module('myApp', []);
+        var app = angular.module('SPFApp', ['ngRoute', 'SPFControllers', 'SPFFilters']);
 
         location.hash = 'Index';
         states = ['Index', 'Topics', 'Posts'];
@@ -293,6 +293,12 @@
         var topicId;
         var topicObj;
         var forumObj;
+
+        angular.module('SPFFilters', []).filter('FormatDate', function () {
+            return function (input) {
+                return input.replace("Date", "");
+            };
+        });
 
         $(document).ready(function () {
             $('#summernote').summernote({ height: 300 });
