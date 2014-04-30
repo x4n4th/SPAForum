@@ -13,7 +13,7 @@
     <div class="masthead">
         <div class="container">
             <nav class="nav">
-                <a class="nav-item active" href="#Index">Home</a>
+                <a class="nav-item" href="#Index">Home</a>
                 <a class="nav-item" href="#">About</a>
                 <span id="loginRegister">
                     <p class="nav-item" data-toggle="modal" data-target="#loginModal"><a href="">Sign In</a></p>
@@ -46,7 +46,7 @@
                 </div>
                 <div id="collapse{{catagory.id}}" class="panel-collapse collapse in">
                     <div class="panel-body" data-ng-controller="loadForums" data-ng-init="init(catagory)">
-                        <div class="row" ng-repeat="forum in forums">
+                        <div class="row" style="border-bottom: 1px solid #ddd;" ng-repeat="forum in forums">
                             <div class="col-md-8 topic-list">
                                 <ul>
                                     <li>
@@ -54,8 +54,10 @@
                                             <div class="col-md-1"><div class="avatar" style="background-image: url(https://treehouse-uploads.s3.amazonaws.com/production/profile-photos/732612/treehouse.jpg)"></div></div>
                                             <div class="col-xs-12 col-md-8">
                                                 <!--<h5 onclick="setState('Topics')">{{forum.name}}</h5>-->
-                                                <a ng-click='go(forum)' href="#Topics">{{forum.name}}</a>
-                                                <p>{{forum.description}}</p>
+                                                <div style="padding: 5px;">
+                                                    <a ng-click='go(forum)' href="#Topics">{{forum.name}}</a>
+                                                    <p>{{forum.description}}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </li>
@@ -95,7 +97,7 @@
             <div class="" id="panel1">
                 </div>
                 <div id="collapse" class="panel-collapse collapse in">
-                    <div class="panel-body">
+                    <div class="panel-body"style="border: 1px solid #ddd;" >
                         <div class="row">
                             <div class="col-md-8 topic-list">
                                 <ul>
@@ -175,7 +177,7 @@
     <!----------------->
     <div class="container" id="statePosts" style="display: none;" data-ng-controller="loadPosts" data-ng-init="init()">
         <div class="" id="accordion" ng-repeat="post in posts">
-            <div class="" id="panel1">
+            <div class="" style="border: 1px solid #ddd;" id="panel1">
             </div>
             <div id="collapse" class="panel-collapse collapse in">
                 <div class="panel-body">
@@ -208,7 +210,7 @@
             </div>
         </div>
         <form id="postForm" data-ng-controller="postToTopic" data-ng-submit="submit()">
-            <textarea name="" id="summernote" rows="10" class="form-control" ng-model="text"></textarea>
+            <textarea name="" id="summernote" rows="10" class="form-control" style="margin-bottom: 15px;" ng-model="text"></textarea>
             <!-- dialog buttons -->
             <button type="submit" class="btn btn-success">Submit</button>
         </form>
