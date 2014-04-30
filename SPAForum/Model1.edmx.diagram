@@ -4,13 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="058c2386e09e4906bb6c6a11927036cd" Name="Diagram1">
-        <EntityTypeShape EntityType="ist331Model.catagory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ist331Model.forum" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ist331Model.member" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ist331Model.post" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ist331Model.session" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ist331Model.topic" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+      <Diagram DiagramId="73d613cee75c40849db4539e0c9ba41d" Name="Diagram1">
+        <EntityTypeShape EntityType="ist331Model.catagory" Width="1.5" PointX="1.5" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ist331Model.forum" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ist331Model.member" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ist331Model.post" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ist331Model.session" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ist331Model.topic" Width="1.5" PointX="6" PointY="4.375" IsExpanded="true" />
+        <AssociationConnector Association="ist331Model.fk_Catagories" ManuallyRouted="false" />
+        <AssociationConnector Association="ist331Model.fk_topics_forumid" ManuallyRouted="false" />
+        <AssociationConnector Association="ist331Model.fk_posts_authors" ManuallyRouted="false" />
+        <AssociationConnector Association="ist331Model.fk_session_members" ManuallyRouted="false" />
+        <AssociationConnector Association="ist331Model.fk_topics_members" ManuallyRouted="false" />
+        <AssociationConnector Association="ist331Model.fk_posts_topics" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

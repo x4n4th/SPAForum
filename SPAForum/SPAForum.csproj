@@ -117,6 +117,7 @@
     <Compile Include="forum.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ForumFormatted.cs" />
     <Compile Include="IRestService.cs" />
     <Compile Include="member.cs">
       <DependentUpon>Model1.tt</DependentUpon>

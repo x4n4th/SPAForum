@@ -14,6 +14,11 @@ namespace SPAForum
     
     public partial class topic
     {
+        public topic()
+        {
+            this.posts = new HashSet<post>();
+        }
+    
         public int tid { get; set; }
         public string title { get; set; }
         public string state { get; set; }
@@ -24,5 +29,9 @@ namespace SPAForum
         public int views { get; set; }
         public int replies { get; set; }
         public string description { get; set; }
+    
+        public virtual forum forum { get; set; }
+        public virtual member member { get; set; }
+        public virtual ICollection<post> posts { get; set; }
     }
 }

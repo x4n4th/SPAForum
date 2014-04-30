@@ -20,5 +20,8 @@ namespace SPAForum
         public System.DateTime post_date { get; set; }
         public string post1 { get; set; }
         public int topic_id { get; set; }
+    
+        public virtual member member { get; set; }
+        public virtual topic topic { get; set; }
     }
 }

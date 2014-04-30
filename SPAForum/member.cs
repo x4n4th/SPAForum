@@ -14,6 +14,13 @@ namespace SPAForum
     
     public partial class member
     {
+        public member()
+        {
+            this.posts = new HashSet<post>();
+            this.sessions = new HashSet<session>();
+            this.topics = new HashSet<topic>();
+        }
+    
         public int id { get; set; }
         public string name { get; set; }
         public int member_group_id { get; set; }
@@ -21,5 +28,9 @@ namespace SPAForum
         public System.DateTime joined { get; set; }
         public string password_hash { get; set; }
         public int banned { get; set; }
+    
+        public virtual ICollection<post> posts { get; set; }
+        public virtual ICollection<session> sessions { get; set; }
+        public virtual ICollection<topic> topics { get; set; }
     }
 }

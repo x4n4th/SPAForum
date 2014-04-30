@@ -18,5 +18,7 @@ namespace SPAForum
         public string session1 { get; set; }
         public int member_id { get; set; }
         public System.DateTime date { get; set; }
+    
+        public virtual member member { get; set; }
     }
 }

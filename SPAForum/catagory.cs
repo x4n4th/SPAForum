@@ -14,7 +14,14 @@ namespace SPAForum
     
     public partial class catagory
     {
+        public catagory()
+        {
+            this.forums = new HashSet<forum>();
+        }
+    
         public int id { get; set; }
         public string name { get; set; }
+    
+        public virtual ICollection<forum> forums { get; set; }
     }
 }

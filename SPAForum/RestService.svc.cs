@@ -61,8 +61,31 @@ namespace SPAForum
         /// <returns>returns a list containing all forums</returns>
         public forum[] getForums(int catId) {
             using (ist331Entities entities = new ist331Entities()) {
-                var forums = from s in entities.forums.Where(x => x.catagorieId == catId) select s;
-                return forums.ToArray();
+                try {
+                    var forums = from s in entities.forums.Where(x => x.catagorieId == catId) select s;
+                    /*List<ForumFormatted> forumArray = new List<ForumFormatted>();
+
+                    foreach (forum f in forums) {
+                        string postDate;
+
+                        //Getting latest post....
+                        var topics = from s in entities.topics.Where(x => x.forum_id == f.id) select s;
+
+                        foreach(topic t in topics){
+
+                        }
+
+                        entities.posts()
+
+                        forumArray.Add(new ForumFormatted(f, postDate, );
+                    }*/
+
+                    return forums.ToArray();
+                }
+                catch (Exception ex) {
+                    Console.WriteLine(ex.ToString());
+                    return null;
+                }
             }
         }
 
