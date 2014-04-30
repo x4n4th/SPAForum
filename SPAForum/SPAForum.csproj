@@ -114,6 +114,7 @@
     <Compile Include="catagory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="CatagoryFormatted.cs" />
     <Compile Include="forum.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -154,7 +155,7 @@
     <Compile Include="TopicFormatted.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

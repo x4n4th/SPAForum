@@ -30,7 +30,7 @@ namespace SPAForum
                 List<PostFormatted> postArray = new List<PostFormatted>();
 
                 foreach(post p in posts){
-                    postArray.Add(new PostFormatted(p, p.post_date.ToString("g")));
+                    postArray.Add(new PostFormatted(p.pid, p.author_name, p.post1, p.post_date.ToString("g")));
                 }
 
                 return postArray.ToArray();
@@ -48,7 +48,7 @@ namespace SPAForum
                 List<TopicFormatted> topicArray = new List<TopicFormatted>();
 
                 foreach (topic t in topics) {
-                    topicArray.Add(new TopicFormatted(t, t.start_date.ToString("g")));
+                    topicArray.Add(new TopicFormatted(t.tid, t.replies, t.views, t.title, t.description, t.starter_name, t.start_date.ToString("g")));
                 }
 
                 return topicArray.ToArray();
@@ -59,7 +59,7 @@ namespace SPAForum
         /// Gets a list of forums
         /// </summary>
         /// <returns>returns a list containing all forums</returns>
-        public forum[] getForums(int catId) {
+        public ForumFormatted[] getForums(int catId) {
             using (ist331Entities entities = new ist331Entities()) {
                 try {
                     var forums = from s in entities.forums.Where(x => x.catagorieId == catId) select s;
@@ -80,7 +80,13 @@ namespace SPAForum
                         forumArray.Add(new ForumFormatted(f, postDate, );
                     }*/
 
-                    return forums.ToArray();
+                    List<ForumFormatted> forumArray = new List<ForumFormatted>();
+
+                    foreach (forum f in forums) {
+                        forumArray.Add(new ForumFormatted(f.id, f.description, f.name));
+                    }
+
+                    return forumArray.ToArray();
                 }
                 catch (Exception ex) {
                     Console.WriteLine(ex.ToString());
@@ -93,10 +99,17 @@ namespace SPAForum
         /// Gets a list of all catagories
         /// </summary>
         /// <returns>catagory list</returns>
-        public catagory[] getCatagories() {
+        public CatagoryFormatted[] getCatagories() {
             using (ist331Entities entities = new ist331Entities()) {
                 var catagories = from s in entities.catagories select s;
-                return catagories.ToArray();
+
+                List<CatagoryFormatted> catList = new List<CatagoryFormatted>();
+
+                foreach (catagory cat in catagories) {
+                    catList.Add(new CatagoryFormatted(cat.id, cat.name));
+                }
+
+                return catList.ToArray();
             }
         }
 

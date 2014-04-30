@@ -106,8 +106,8 @@
                                     <li>
                                         <div class="row">
                                             <div class="col-xs-12 col-md-8">
-                                                <a ng-click='go(topic.topicEntity)' href="#Posts">{{topic.topicEntity.title}}</a>
-                                                <p>{{topic.topicEntity.description}}</p>
+                                                <a ng-click='go(topic)' href="#Posts">{{topic.title}}</a>
+                                                <p>{{topic.description}}</p>
                                             </div>
                                         </div>
                                     </li>
@@ -118,10 +118,10 @@
                                     <li>
                                         <div class="row">
                                             <div class="col-xs-6 col-md-8 col-topic">
-                                                <h5>Replies: {{topic.topicEntity.replies}}</h5>
+                                                <h5>Replies: {{topic.replies}}</h5>
                                                 <p> Date: {{topic.formattedDate}}</p>
-                                                <h5>Views: {{topic.topicEntity.views}}</h5>
-                                                <p>Author: {{topic.topicEntity.starter_name}}</p>
+                                                <h5>Views: {{topic.views}}</h5>
+                                                <p>Author: {{topic.starter_name}}</p>
                                             </div>
                                         </div>
                                     </li>
@@ -189,7 +189,7 @@
                                 <li>
                                     <div class="row">
                                         <div class="col-xs-6 col-md-8 col-topic">
-                                            <p>Author: {{post.postEntity.author_name}}</p>
+                                            <p>Author: {{post.author_name}}</p>
                                             <p>Date: {{post.formattedDate}}</p>
                                         </div>
                                     </div>
@@ -201,7 +201,7 @@
                                 <li>
                                     <div class="row">
                                         <div class="col-xs-12 col-md-8">
-                                            <p>{{post.postEntity.post1}}</p>
+                                            <p>{{post.postBody}}</p>
                                         </div>
                                     </div>
                                 </li>

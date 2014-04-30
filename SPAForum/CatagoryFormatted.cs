@@ -6,15 +6,13 @@ using System.Web;
 namespace SPAForum
 {
     [Serializable]
-    public class ForumFormatted
+    public class CatagoryFormatted
     {
         int id;
-        string /*postDate,*/ description, name;
-        //post latestPost;
+        string name;
 
-        public ForumFormatted(int id, string description, string name) {
+        public CatagoryFormatted(int id, string name) {
             this.id = id;
-            this.description = description;
             this.name = name;
         }
     }

@@ -40,7 +40,7 @@ namespace SPAForum
         [WebGet(UriTemplate = "/getForums?catId={catId}",
             ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
-        forum[] getForums(int catId);
+        ForumFormatted[] getForums(int catId);
 
         /// <summary>
         /// Posts a post to a certain topic
@@ -77,7 +77,7 @@ namespace SPAForum
         [WebGet(UriTemplate = "/getCatagories",
             ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
-        catagory[] getCatagories();
+        CatagoryFormatted[] getCatagories();
 
         /// <summary>
         /// Verifies the user
