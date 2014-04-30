@@ -20,7 +20,7 @@ namespace SPAForum
         [WebGet(UriTemplate = "/getPosts?topic={topicId}",
             ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
-        post[] getPosts(int topicId);
+        PostFormatted[] getPosts(int topicId);
 
         /// <summary>
         /// Given a forum id returns a array of topics
@@ -30,7 +30,7 @@ namespace SPAForum
         [WebGet(UriTemplate = "/getTopics?forum={forumId}",
             ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
-        topic[] getTopics(int forumId);
+        TopicFormatted[] getTopics(int forumId);
 
 
         /// <summary>

@@ -17,7 +17,7 @@ namespace SPAForum
         /// </summary>
         /// <param name="topicId">int topic number</param>
         /// <returns>array of posts</returns>
-        public post[] getPosts(int topicId){
+        public PostFormatted[] getPosts(int topicId){
             using(ist331Entities entities = new ist331Entities()){
                 var posts = from s in entities.posts.Where(x=>x.topic_id == topicId) select s;
 
@@ -27,7 +27,13 @@ namespace SPAForum
 
                 entities.SaveChanges();
 
-                return posts.ToArray();
+                List<PostFormatted> postArray = new List<PostFormatted>();
+
+                foreach(post p in posts){
+                    postArray.Add(new PostFormatted(p, p.post_date.ToString("g")));
+                }
+
+                return postArray.ToArray();
             }
         }
 
@@ -36,10 +42,16 @@ namespace SPAForum
         /// </summary>
         /// <param name="forumId">forum id</param>
         /// <returns>an array of topics</returns>
-        public topic[] getTopics(int forumId) {
+        public TopicFormatted[] getTopics(int forumId) {
             using (ist331Entities entities = new ist331Entities()) {
                 var topics = from s in entities.topics.Where(x => x.forum_id == forumId) select s;
-                return topics.ToArray();
+                List<TopicFormatted> topicArray = new List<TopicFormatted>();
+
+                foreach (topic t in topics) {
+                    topicArray.Add(new TopicFormatted(t, t.start_date.ToString("g")));
+                }
+
+                return topicArray.ToArray();
             }
         }
 
