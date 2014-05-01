@@ -36,20 +36,32 @@
                 <input type="radio" name="delete" value="delete">Delete<br>
                 <input type="radio" name="update" value="update">Update<br>
                   <input type="submit" value="Submit">
-                </form>      
-              
-                
-                <div id="collapse" class="panel-collapse collapse in">
-                    <div class="panel-body">
-                        <div class="row">
+                </form>   
+                <div style="padding:5px;" id="stateIndex" class="container" data-ng-controller="loadCatagories" data-ng-init="init()">
+        <div ng-repeat="catagory in catagories" class="panel-group" id="Div1">
+            <div class="panel panel-default" id="Div2">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-target=""
+                           href="#collapse{{catagory.id}}">
+                            {{catagory.name}}
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse{{catagory.id}}" class="panel-collapse collapse in">
+                    <div class="panel-body" data-ng-controller="loadForums" data-ng-init="init(catagory)">
+                        <div class="row" style="border-bottom: 1px solid #ddd;" ng-repeat="forum in forums">
                             <div class="col-md-8 topic-list">
-                                
                                 <ul>
                                     <li>
                                         <div class="row">
+                                            <div class="col-md-1"><div class="avatar" style="background-image: url(https://treehouse-uploads.s3.amazonaws.com/production/profile-photos/732612/treehouse.jpg)"></div></div>
                                             <div class="col-xs-12 col-md-8">
-                                                <h5>HTML/CSS</h5>
-                                                <p>Everything you need to know about html/css</p>
+                                                <!--<h5 onclick="setState('Topics')">{{forum.name}}</h5>-->
+                                                <div style="padding: 5px;">
+                                                    <a ng-click='go(forum)' href="#Topics">{{forum.name}}</a>
+                                                    <p>{{forum.description}}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </li>
@@ -59,22 +71,26 @@
                                 <ul>
                                     <li>
                                         <div class="row">
-                                            <div class="col-xs-6 col-md-8 col-topic">
-                                                <h5> Replies</h5>
-                                                <p> Date</p>
-                                                <h5>Views</h5>
-                                                <p>Author</p>
+                                            <div class="col-md-3"><div class="avatar" style="background-image: url(http://www.gravatar.com/avatar/{{forum.gravatar}}?s=40); "></div></div>
+                                            <div class="col-xs-6 col-md-8">
+                                                <p class="small">{{forum.topic_name}}</p>
+                                                <p class="small">{{forum.author_name}}</p>
+                                                <p class="small"> <font color="gray" >{{forum.post_date}} </font></p>
                                             </div>
                                         </div>
-                                        </li>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div{>
+            </div>
         </div> <!--Panel Ending -->
     </div><!--Container Ending -->
+    <!------------------------->
+    <!-- END Catagories Menu -->
+    <!------------------------->       
+                
    
 <div class="footer">
         <p>Bulit by Team 6</p>
@@ -103,6 +119,21 @@
 
 </body>
       <script type="text/javascript">
+          function loadCatagories($scope) {
+
+              $scope.init = function () {
+                  var query = "/RestService.svc/getCatagories";
+                  $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
+                      .done(function (json) {
+                          $scope.catagories = json;
+                          $scope.$apply();
+                      })
+                      .fail(function () {
+                          alert("Error");
+                      });
+              }
+          }
+
     function newTopic($scope, $rootScope) {
             $scope.submit = function () {
             var query = "/RestService.svc/postTopic?session=" + session + "&name=" + user + "&topic=" + forumObj.id + "&title=" + $scope.topicTitle + "&desc=" + $scope.topicSummary + "&post=" + $scope.postText;
