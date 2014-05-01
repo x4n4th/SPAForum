@@ -6,7 +6,17 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link href="summernote.css" rel="stylesheet" />
+<<<<<<< HEAD
     <link href="custom.css" rel="stylesheet" />
+=======
+    <style>
+        p.small {line-height:80%;}
+        p.big {line-height:200%;}
+        p.ex {
+            color: gray;
+        }
+    </style>
+>>>>>>> 41b7535eee5d1df414e477df58a72ac399b8fc6d
 </head>
 
 <body data-ng-app>
@@ -69,9 +79,9 @@
                                         <div class="row">
                                             <div class="col-md-3"><div class="avatar" style="background-image: url(http://www.gravatar.com/avatar/{{forum.gravatar}}?s=40); "></div></div>
                                             <div class="col-xs-6 col-md-8">
-                                                <p>{{forum.topic_name}}</p>
-                                                <p>by {{forum.author_name}}</p>
-                                                <p>{{forum.post_date}}</p>
+                                                <p class="small">{{forum.topic_name}}</p>
+                                                <p class="small">{{forum.author_name}}</p>
+                                                <p class="small"> <font color="gray" >{{forum.post_date}} </font></p>
                                             </div>
                                         </div>
                                     </li>
@@ -118,10 +128,17 @@
                                     <li>
                                         <div class="row">
                                             <div class="col-xs-6 col-md-8 col-topic">
+<<<<<<< HEAD
                                                 <h5>Replies: {{topic.replies}}</h5>
                                                 <p> {{topic.formattedDate}}</p>
                                                 <h5>Views: {{topic.views}}</h5>
                                                 <p>{{topic.starter_name}}</p>
+=======
+                                                <p class="small">Replies: {{topic.replies}}</p>
+                                                <p class="small"><font color="gray">{{topic.formattedDate}}</font></p>
+                                                <p class="smal" >Views: {{topic.views}}</p>
+                                                <p class="small">Author: {{topic.starter_name}}</p>
+>>>>>>> 41b7535eee5d1df414e477df58a72ac399b8fc6d
                                             </div>
                                         </div>
                                     </li>
@@ -189,8 +206,13 @@
                                 <li>
                                     <div class="row">
                                         <div class="col-xs-6 col-md-8 col-topic">
+<<<<<<< HEAD
                                             <p>Author: {{post.author_name}}</p>
                                             <p> {{post.formattedDate}}</p>
+=======
+                                            <p class="small">Author: {{post.author_name}}</p>
+                                            <p class="small"><font color="gray">Date: {{post.formattedDate}}</font></p>
+>>>>>>> 41b7535eee5d1df414e477df58a72ac399b8fc6d
                                         </div>
                                     </div>
                                 </li>
