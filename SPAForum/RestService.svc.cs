@@ -54,11 +54,11 @@ namespace SPAForum
                 return topicArray.ToArray();
             }
         }
-
         /// <summary>
         /// Gets a list of forums
         /// </summary>
-        /// <returns>returns a list containing all forums</returns>
+        /// <param name="catId">A Catagory Id</param>
+        /// <returns>returns a list containing forums for a catagory</returns>
         public ForumFormatted[] getForums(int catId) {
             using (ist331Entities entities = new ist331Entities()) {
                 try {
@@ -83,7 +83,20 @@ namespace SPAForum
                     List<ForumFormatted> forumArray = new List<ForumFormatted>();
 
                     foreach (forum f in forums) {
-                        forumArray.Add(new ForumFormatted(f.id, f.description, f.name));
+
+                        var topics = from s in entities.topics.Where(x => x.forum_id == f.id) select s;
+
+                        post p = new post();
+
+                        foreach (topic t in topics) {
+                            post tempPost = entities.posts.Where(x => x.topic_id == t.tid).OrderByDescending(x => x.post_date).FirstOrDefault();
+
+                            if (tempPost.post_date.CompareTo(p.post_date) == 1) {
+                                p = tempPost;
+                            }
+                        }
+
+                        forumArray.Add(new ForumFormatted(f.id, f.description, f.name, p.member.name, p.topic.title, p.post_date.ToString("g"), MD5HashStringForUTF8String(p.member.email)));
                     }
 
                     return forumArray.ToArray();
@@ -385,6 +398,15 @@ namespace SPAForum
                 sb.Append(hex);
             }
             return sb.ToString();
+        }
+
+        public string MD5HashStringForUTF8String(string s) {
+            byte[] bytes = Encoding.UTF8.GetBytes(s);
+
+            var md5 = MD5.Create();
+            byte[] hashBytes = md5.ComputeHash(bytes);
+
+            return HexStringFromBytes(hashBytes);
         }
     }
 }
