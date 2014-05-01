@@ -19,9 +19,9 @@ h6, .h6 {
   color: #333;
 }
 
-a {
+/*a {
     color: black;
-}
+}*/
 
 .panel-body {
 padding: 1px;
@@ -202,3 +202,8 @@ div.row:hover {
         color:white;
     }
 
+small.p {line-height:80%;}
+        p.big {line-height:200%;}
+        p.ex {
+            color: gray;
+        }

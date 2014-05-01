@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link href="summernote.css" rel="stylesheet" />
-
     <link href="custom.css" rel="stylesheet" />
 
     <style>
@@ -81,7 +80,7 @@
                                             <div class="col-xs-6 col-md-8">
                                                 <p class="small">{{forum.topic_name}}</p>
                                                 <p class="small">{{forum.author_name}}</p>
-                                                <p class="small"> <font color="gray" >{{forum.post_date}} </font></p>
+                                                <p class="small">{{forum.post_date}} </p>
                                             </div>
                                         </div>
                                     </li>
@@ -241,7 +240,7 @@
     <div style="padding:5px; display:none;" id="stateProfile" class="container" >
         <div class="row fi">
             <div class="col-md-4">
-                <img data-src="Images/default_user_Image.png" class="img-thumbnail" alt="200x200" src="http://www.gravatar.com/avatar/410d9a4eb587da9029cb09236062f257?s=200" style="width: 200px; height: 200px;">
+                <img data-src="Images/default_user_Image.png" class="img-thumbnail" alt="200x200" src="http://www.gravatar.com/avatar/{{forum.gravatar}}?s=200" style="width: 200px; height: 200px;">
                 <div style="padding-left: 40px; padding-top: 10px;"><span class="">Member</span></div>
             </div>
             <div class="col-md-4">
