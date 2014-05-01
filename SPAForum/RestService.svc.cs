@@ -18,7 +18,7 @@ namespace SPAForum
         /// <param name="topicId">int topic number</param>
         /// <returns>array of posts</returns>
         public PostFormatted[] getPosts(int topicId){
-            using(ist331Entities entities = new ist331Entities()){
+            using(Entities entities = new Entities()){
                 var posts = from s in entities.posts.Where(x=>x.topic_id == topicId) select s;
 
                 topic chosenTopic = entities.topics.Find(topicId);
@@ -43,7 +43,7 @@ namespace SPAForum
         /// <param name="forumId">forum id</param>
         /// <returns>an array of topics</returns>
         public TopicFormatted[] getTopics(int forumId) {
-            using (ist331Entities entities = new ist331Entities()) {
+            using (Entities entities = new Entities()) {
                 var topics = from s in entities.topics.Where(x => x.forum_id == forumId) select s;
                 List<TopicFormatted> topicArray = new List<TopicFormatted>();
 
@@ -60,7 +60,7 @@ namespace SPAForum
         /// <param name="catId">A Catagory Id</param>
         /// <returns>returns a list containing forums for a catagory</returns>
         public ForumFormatted[] getForums(int catId) {
-            using (ist331Entities entities = new ist331Entities()) {
+            using (Entities entities = new Entities()) {
                 try {
                     var forums = from s in entities.forums.Where(x => x.catagorieId == catId) select s;
                     /*List<ForumFormatted> forumArray = new List<ForumFormatted>();
@@ -113,7 +113,7 @@ namespace SPAForum
         /// </summary>
         /// <returns>catagory list</returns>
         public CatagoryFormatted[] getCatagories() {
-            using (ist331Entities entities = new ist331Entities()) {
+            using (Entities entities = new Entities()) {
                 var catagories = from s in entities.catagories select s;
 
                 List<CatagoryFormatted> catList = new List<CatagoryFormatted>();
@@ -133,7 +133,7 @@ namespace SPAForum
         /// <param name="name"></param>
         /// <returns>returns if logout was successful</returns>
         public bool logout(string sessionId, string name) {
-            using (ist331Entities entities = new ist331Entities()) {
+            using (Entities entities = new Entities()) {
                 var members = entities.members.Where(x => x.name == name);
                 member suppliedMember = null;
 
@@ -170,7 +170,7 @@ namespace SPAForum
         /// <param name="postStr">The post</param>
         /// <returns>if the post was successful</returns>
         public bool postToTopic(string sessionId, string name, int topicId, string postStr){
-            using (ist331Entities entities = new ist331Entities()) {
+            using (Entities entities = new Entities()) {
                 var members = entities.members.Where(x => x.name == name);
                 member suppliedMember = null;
 
@@ -218,7 +218,7 @@ namespace SPAForum
         /// <param name="post"></param>
         /// <returns>If the topic was created properly</returns>
         public bool postTopic(string sessionId, string name, int forumId, string title, string description, string post) {
-            using (ist331Entities entities = new ist331Entities()) {
+            using (Entities entities = new Entities()) {
                 var members = entities.members.Where(x => x.name == name);
                 member suppliedMember = null;
 
@@ -275,7 +275,7 @@ namespace SPAForum
         /// <param name="password">password</param>
         /// <returns>session string if user is valid</returns>
         public string verifyUser(string user, string password) {
-            using (ist331Entities entities = new ist331Entities()) {
+            using (Entities entities = new Entities()) {
                 string hashedPassword = SHA1HashStringForUTF8String(password);
                 var member = from s in entities.members
                                  .Where(x => x.password_hash == hashedPassword && x.name == user) 
@@ -321,7 +321,7 @@ namespace SPAForum
         /// <param name="password">the members password</param>
         /// <returns>returns if the member was created</returns>
         public bool createMember(string name, string password) {
-            using (ist331Entities entities = new ist331Entities()) {
+            using (Entities entities = new Entities()) {
                 try {
                     member mem = new member();
                     mem.joined = DateTime.Now;
@@ -347,7 +347,7 @@ namespace SPAForum
         /// <param name="rawPassword"></param>
         /// <returns>returns if the user was registered</returns>
         public bool register(string username, string email, string rawPassword) {
-            using (ist331Entities entities = new ist331Entities()) {
+            using (Entities entities = new Entities()) {
                 try {
                     member newMember = new member();
 
@@ -400,6 +400,11 @@ namespace SPAForum
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Returns MD5 Hash of a string
+        /// </summary>
+        /// <param name="s">a string</param>
+        /// <returns>MD5 hash as string</returns>
         public string MD5HashStringForUTF8String(string s) {
             byte[] bytes = Encoding.UTF8.GetBytes(s);
 

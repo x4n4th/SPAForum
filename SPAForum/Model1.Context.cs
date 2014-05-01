@@ -12,11 +12,11 @@ namespace SPAForum
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-
-    public partial class ist331Entities : DbContext
+    
+    public partial class Entities : DbContext
     {
-        public ist331Entities()
-            : base("name=ist331Entities")
+        public Entities()
+            : base("name=Entities")
         {
         }
     
