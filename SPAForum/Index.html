@@ -5,8 +5,8 @@
     <!--Using a content delivery network - watch if they go down so does your site-->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link href="custom.css" rel="stylesheet" />
     <link href="summernote.css" rel="stylesheet" />
+    <link href="custom.css" rel="stylesheet" />
 </head>
 
 <body data-ng-app>
@@ -119,9 +119,9 @@
                                         <div class="row">
                                             <div class="col-xs-6 col-md-8 col-topic">
                                                 <h5>Replies: {{topic.replies}}</h5>
-                                                <p> Date: {{topic.formattedDate}}</p>
+                                                <p> {{topic.formattedDate}}</p>
                                                 <h5>Views: {{topic.views}}</h5>
-                                                <p>Author: {{topic.starter_name}}</p>
+                                                <p>{{topic.starter_name}}</p>
                                             </div>
                                         </div>
                                     </li>
@@ -190,7 +190,7 @@
                                     <div class="row">
                                         <div class="col-xs-6 col-md-8 col-topic">
                                             <p>Author: {{post.author_name}}</p>
-                                            <p>Date: {{post.formattedDate}}</p>
+                                            <p> {{post.formattedDate}}</p>
                                         </div>
                                     </div>
                                 </li>
