@@ -63,22 +63,6 @@ namespace SPAForum
             using (Entities entities = new Entities()) {
                 try {
                     var forums = from s in entities.forums.Where(x => x.catagorieId == catId) select s;
-                    /*List<ForumFormatted> forumArray = new List<ForumFormatted>();
-
-                    foreach (forum f in forums) {
-                        string postDate;
-
-                        //Getting latest post....
-                        var topics = from s in entities.topics.Where(x => x.forum_id == f.id) select s;
-
-                        foreach(topic t in topics){
-
-                        }
-
-                        entities.posts()
-
-                        forumArray.Add(new ForumFormatted(f, postDate, );
-                    }*/
 
                     List<ForumFormatted> forumArray = new List<ForumFormatted>();
 
@@ -123,6 +107,37 @@ namespace SPAForum
                 }
 
                 return catList.ToArray();
+            }
+        }
+
+        /// <summary>
+        /// The watch dog. Returns if the forums or topics need to reloaded
+        /// </summary>
+        /// <param name="forumId">The id of the forum</param>
+        /// <param name="topicId">the id of the topic</param>
+        /// <returns>If the posts need to be reloaded</returns>
+        public bool watchDog(int forumId, int topicId){
+            using (Entities entities = new Entities()) {
+                DateTime date = DateTime.Now.Subtract(TimeSpan.FromSeconds(3));
+
+                if (topicId != -1) {
+                    var posts = from s in entities.posts.Where(x => x.topic_id == topicId && x.post_date > date) select s;
+
+                    if (posts.Count() > 0) {
+                        return true;
+                    }
+                }
+
+
+                if (forumId != -1) {
+                    var topics = from s in entities.topics.Where(x => x.forum_id == forumId && x.start_date > date) select s;
+
+                    if (topics.Count() > 0) {
+                        return true;
+                    }
+                }
+
+                return false;
             }
         }
 

@@ -39,6 +39,11 @@
             </nav>
         </div>
     </div>
+
+    <div data-ng-controller="watchDog" data-ng-init="init()">
+        <!--Loads Watch Dog Controller-->
+    </div>
+
     <!--------------------->
     <!-- Catagories Menu -->
     <!--------------------->
@@ -229,6 +234,8 @@
             <button type="submit" class="btn btn-success">Submit</button>
         </form>
     </div> <!--Panel Ending -->
+
+
     </div><!--Container Ending -->
     <!--------------------->
     <!-- END Posts Menu -->
@@ -412,7 +419,32 @@
                 $rootScope.$broadcast('loadTopic', forum);
             }
         }
+        function watchDog($scope, $rootScope, $timeout) {
+            
+            $scope.init = function () {
+                console.log("Loading Watch Dog")
+            }
+            $scope.onTimeout = function () {
+                fId = (forumObj != null) ? forumObj.id : -1;
+                tid = (topicObj != null) ? topicObj.tid : -1;
+
+                var query = "/RestService.svc/watchdog?forum=" + fId + "&topic=" + tid;
+                $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
+                    .done(function (json) {
+                        if (json == true) {
+                            $rootScope.$broadcast('reloadTopic');
+                            $rootScope.$broadcast('reloadPosts');
+                        }
+                    })
+                    .fail(function () {
+                        alert("Error");
+                    });
+                mytimeout = $timeout($scope.onTimeout, 3000);
+            }
+            var mytimeout = $timeout($scope.onTimeout, 3000);
+        }
         function loadTopics($scope, $rootScope) {
+
             $rootScope.$on('loadTopic', function (stuff, forum) {
                 forumObj = forum;
                 var query = "/RestService.svc/getTopics?forum=" + forum.id;
@@ -429,6 +461,19 @@
 
                 $rootScope.$broadcast('loadPost', topic);
             }
+            $rootScope.$on('reloadTopic', function () {
+                if (forumObj != null) {
+                    var query = "/RestService.svc/getTopics?forum=" + forumObj.id;
+                    $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
+                        .done(function (json) {
+                            $scope.topics = json;
+                            $scope.$apply();
+                        })
+                        .fail(function () {
+                            alert("Error");
+                        });
+                }
+            });
         }
         function newTopic($scope, $rootScope) {
             $scope.submit = function () {
@@ -443,7 +488,7 @@
                     });
             }
         }
-        function loadPosts($scope, $rootScope) {
+        function loadPosts($scope, $rootScope, $timeout) {
             $rootScope.$on('loadPost', function (stuff, topic) {
                 var query = "/RestService.svc/getPosts?topic=" + topic.tid;
                 topicId = topic.tid;
@@ -456,6 +501,19 @@
                     .fail(function () {
                         alert("Error");
                     });
+            });
+            $rootScope.$on('reloadPosts', function () {
+                if (topicObj != null) {
+                    var query = "/RestService.svc/getPosts?topic=" + topicObj.tid;
+                    $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
+                        .done(function (json) {
+                            $scope.posts = json;
+                            $scope.$apply();
+                        })
+                        .fail(function () {
+                            alert("Error");
+                        });
+                }
             });
         }
         function login($scope, $rootScope) {

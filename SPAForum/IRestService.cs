@@ -123,5 +123,17 @@ namespace SPAForum
             ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
         bool register(string username, string email, string rawPassword);
+
+
+        /// <summary>
+        /// The watch dog. Returns if the forums or topics need to reloaded
+        /// </summary>
+        /// <param name="forumId">The id of the forum</param>
+        /// <param name="topicId">the id of the topic</param>
+        /// <returns>If the posts need to be reloaded</returns>
+        [WebGet(UriTemplate = "/watchdog?forum={fId}&topic={tid}",
+            ResponseFormat = WebMessageFormat.Json)]
+        [OperationContract]
+        bool watchDog(int fId, int tid);
     }
 }
