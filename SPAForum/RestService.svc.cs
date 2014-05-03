@@ -44,7 +44,10 @@ namespace SPAForum
         /// <returns>an array of topics</returns>
         public TopicFormatted[] getTopics(int forumId) {
             using (Entities entities = new Entities()) {
-                var topics = from s in entities.topics.Where(x => x.forum_id == forumId) select s;
+                var topics = from s in entities.topics
+                                 .Where(x => x.forum_id == forumId)
+                                 .OrderByDescending(x => x.start_date)
+                             select s;
                 List<TopicFormatted> topicArray = new List<TopicFormatted>();
 
                 foreach (topic t in topics) {
