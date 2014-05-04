@@ -42,7 +42,7 @@ namespace SPAForum
         /// </summary>
         /// <param name="forumId">forum id</param>
         /// <returns>an array of topics</returns>
-        public TopicFormatted[] getTopics(int forumId) {
+        public TopicPage getTopics(int forumId, int page, int pageSize) {
             using (Entities entities = new Entities()) {
                 var topics = from s in entities.topics
                                  .Where(x => x.forum_id == forumId)
@@ -54,7 +54,19 @@ namespace SPAForum
                     topicArray.Add(new TopicFormatted(t.tid, t.replies, t.views, t.title, t.description, t.starter_name, t.start_date.ToString("g")));
                 }
 
-                return topicArray.ToArray();
+                List<TopicFormatted> returnArray = new List<TopicFormatted>();
+
+                int amountOfPages = (int)Math.Ceiling((decimal)(topicArray.Count() / (decimal)pageSize));
+
+                for(int i = ((page - 1) * pageSize); i < (page * pageSize); i++){
+                    if (topicArray.Count() > i) {
+                        returnArray.Add(topicArray.ToArray()[i]);
+                    }
+                }
+
+                TopicPage topicPage = new TopicPage(returnArray, amountOfPages, page);
+
+                return topicPage;
             }
         }
         /// <summary>

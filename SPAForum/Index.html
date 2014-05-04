@@ -105,50 +105,50 @@
     <!-- Topics Menu -->
     <!----------------->
     <div class="container" id="stateTopics" style="display: none;" data-ng-controller="loadTopics" data-ng-init="init()">
-        <div style="padding:10px;float:right;">
+        <div style="padding:20px;float:right;">
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#newTopicModal">New Topic</button>
         </div>
-        <div style ="margin-top:50px;"></div>
-        <div class="" id="accordion" ng-repeat="topic in topics">
+        <ul class="pagination" ng-repeat="n in range(1,topics.pageCount)">
+            <li><a ng-click="newPage(n)">{{n}}</a></li>
+        </ul>
+
+        <div class="" id="accordion" ng-repeat="topic in topics.topicArray">
             <div class="" id="panel1">
-                </div>
-                <div id="collapse" class="panel-collapse collapse in">
-                    <div class="panel-body"style="border: 1px solid #ddd;" >
-                        <div class="row">
-                            <div class="col-md-8 topic-list">
-                                <ul>
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-xs-12 col-md-8">
-                                                <a ng-click='go(topic)' href="#Posts">{{topic.title}}</a>
-                                                <p>{{topic.description}}</p>
-                                            </div>
+            </div>
+            <div id="collapse" class="panel-collapse collapse in">
+                <div class="panel-body" style="border: 1px solid #ddd;">
+                    <div class="row">
+                        <div class="col-md-8 topic-list">
+                            <ul>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-8">
+                                            <a ng-click='go(topic)' href="#Posts">{{topic.title}}</a>
+                                            <p>{{topic.description}}</p>
                                         </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-4 last-post">
-                                <ul>
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-xs-6 col-md-8 col-topic">
-
-                                                <h5>Replies: {{topic.replies}}</h5>
-                                                <p> {{topic.formattedDate}}</p>
-                                                <h5>Views: {{topic.views}}</h5>
-                                                <p>{{topic.starter_name}}</p>
-
-
-                                            </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4 last-post">
+                            <ul>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-6 col-md-8 col-topic">
+                                            <h5>Replies: {{topic.replies}}</h5>
+                                            <p> {{topic.formattedDate}}</p>
+                                            <h5>Views: {{topic.views}}</h5>
+                                            <p>{{topic.starter_name}}</p>
                                         </div>
-                                    </li>
-                                </ul>
-                            </div>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        <div style="padding: 10px; float: right;">
+        </div>
+        <div style="padding: 20px; float: right;">
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#newTopicModal">New Topic</button>
         </div>
         </div> <!--Panel Ending -->
@@ -368,8 +368,14 @@
         var session;
         var user;
         var topicId;
+
+        //Current forum / topic
         var topicObj;
         var forumObj;
+
+        //Pages
+        var topicPage;
+        var postPage;
 
         angular.module('SPFFilters', []).filter('FormatDate', function () {
             return function (input) {
@@ -447,10 +453,11 @@
 
             $rootScope.$on('loadTopic', function (stuff, forum) {
                 forumObj = forum;
-                var query = "/RestService.svc/getTopics?forum=" + forum.id;
+                var query = "/RestService.svc/getTopics?forum=" + forum.id + "&page=1&pageSize=7";
                 $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
                     .done(function (json) {
                         $scope.topics = json;
+                        topicPage = json;
                         $scope.$apply();
                     })
                     .fail(function () {
@@ -463,10 +470,11 @@
             }
             $rootScope.$on('reloadTopic', function () {
                 if (forumObj != null) {
-                    var query = "/RestService.svc/getTopics?forum=" + forumObj.id;
+                    var query = "/RestService.svc/getTopics?forum=" + forumObj.id + "&page=" + topicPage.page + "&pageSize=7";
                     $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
                         .done(function (json) {
                             $scope.topics = json;
+                            topicPage = json;
                             $scope.$apply();
                         })
                         .fail(function () {
@@ -474,6 +482,26 @@
                         });
                 }
             });
+            $rootScope.newPage =  function (pageNumber) {
+                if (forumObj != null) {
+                    var query = "/RestService.svc/getTopics?forum=" + forumObj.id + "&page=" + pageNumber + "&pageSize=7";
+                    $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
+                        .done(function (json) {
+                            $scope.topics = json;
+                            topicPage = json;
+                            $scope.$apply();
+                        })
+                        .fail(function () {
+                            alert("Error");
+                        });
+                }
+            };
+            $scope.range = function (min, max, step) {
+                step = (step === undefined) ? 1 : step;
+                var input = [];
+                for (var i = min; i <= max; i += step) input.push(i);
+                return input;
+            };
         }
         function newTopic($scope, $rootScope) {
             $scope.submit = function () {
