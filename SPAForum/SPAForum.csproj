@@ -76,6 +76,7 @@
     <Content Include="custom.css" />
     <Content Include="AdminPage.html" />
     <Content Include="Images\default_user_Image.png" />
+    <Content Include="Images\icon_read.png" />
     <Content Include="Index.html" />
     <Content Include="packages.config" />
     <EntityDeploy Include="Model1.edmx">
