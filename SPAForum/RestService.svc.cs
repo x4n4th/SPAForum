@@ -18,7 +18,8 @@ namespace SPAForum
         /// <param name="topicId">int topic number</param>
         /// <returns>array of posts</returns>
         public PostFormatted[] getPosts(int topicId){
-            using(Entities entities = new Entities()){
+            using (IST421Entities entities = new IST421Entities())
+            {
                 var posts = from s in entities.posts.Where(x=>x.topic_id == topicId) select s;
 
                 topic chosenTopic = entities.topics.Find(topicId);
@@ -43,7 +44,8 @@ namespace SPAForum
         /// <param name="forumId">forum id</param>
         /// <returns>an array of topics</returns>
         public TopicPage getTopics(int forumId, int page, int pageSize) {
-            using (Entities entities = new Entities()) {
+            using (IST421Entities entities = new IST421Entities())
+            {
                 var topics = from s in entities.topics
                                  .Where(x => x.forum_id == forumId)
                                  .OrderByDescending(x => x.start_date)
@@ -75,7 +77,8 @@ namespace SPAForum
         /// <param name="catId">A Catagory Id</param>
         /// <returns>returns a list containing forums for a catagory</returns>
         public ForumFormatted[] getForums(int catId) {
-            using (Entities entities = new Entities()) {
+            using (IST421Entities entities = new IST421Entities())
+            {
                 try {
                     var forums = from s in entities.forums.Where(x => x.catagorieId == catId) select s;
 
@@ -112,7 +115,8 @@ namespace SPAForum
         /// </summary>
         /// <returns>catagory list</returns>
         public CatagoryFormatted[] getCatagories() {
-            using (Entities entities = new Entities()) {
+            using (IST421Entities entities = new IST421Entities())
+            {
                 var catagories = from s in entities.catagories select s;
 
                 List<CatagoryFormatted> catList = new List<CatagoryFormatted>();
@@ -132,7 +136,8 @@ namespace SPAForum
         /// <param name="topicId">the id of the topic</param>
         /// <returns>If the posts need to be reloaded</returns>
         public bool watchDog(int forumId, int topicId){
-            using (Entities entities = new Entities()) {
+            using (IST421Entities entities = new IST421Entities())
+            {
                 DateTime date = DateTime.Now.Subtract(TimeSpan.FromSeconds(3));
 
                 if (topicId != -1) {
@@ -163,7 +168,8 @@ namespace SPAForum
         /// <param name="name"></param>
         /// <returns>returns if logout was successful</returns>
         public bool logout(string sessionId, string name) {
-            using (Entities entities = new Entities()) {
+            using (IST421Entities entities = new IST421Entities())
+            {
                 var members = entities.members.Where(x => x.name == name);
                 member suppliedMember = null;
 
@@ -200,7 +206,8 @@ namespace SPAForum
         /// <param name="postStr">The post</param>
         /// <returns>if the post was successful</returns>
         public bool postToTopic(string sessionId, string name, int topicId, string postStr){
-            using (Entities entities = new Entities()) {
+            using (IST421Entities entities = new IST421Entities())
+            {
                 var members = entities.members.Where(x => x.name == name);
                 member suppliedMember = null;
 
@@ -248,7 +255,8 @@ namespace SPAForum
         /// <param name="post"></param>
         /// <returns>If the topic was created properly</returns>
         public bool postTopic(string sessionId, string name, int forumId, string title, string description, string post) {
-            using (Entities entities = new Entities()) {
+            using (IST421Entities entities = new IST421Entities())
+            {
                 var members = entities.members.Where(x => x.name == name);
                 member suppliedMember = null;
 
@@ -305,7 +313,8 @@ namespace SPAForum
         /// <param name="password">password</param>
         /// <returns>session string if user is valid</returns>
         public string verifyUser(string user, string password) {
-            using (Entities entities = new Entities()) {
+            using (IST421Entities entities = new IST421Entities())
+            {
                 string hashedPassword = SHA1HashStringForUTF8String(password);
                 var member = from s in entities.members
                                  .Where(x => x.password_hash == hashedPassword && x.name == user) 
@@ -351,7 +360,8 @@ namespace SPAForum
         /// <param name="password">the members password</param>
         /// <returns>returns if the member was created</returns>
         public bool createMember(string name, string password) {
-            using (Entities entities = new Entities()) {
+            using (IST421Entities entities = new IST421Entities())
+            {
                 try {
                     member mem = new member();
                     mem.joined = DateTime.Now;
@@ -377,7 +387,8 @@ namespace SPAForum
         /// <param name="rawPassword"></param>
         /// <returns>returns if the user was registered</returns>
         public bool register(string username, string email, string rawPassword) {
-            using (Entities entities = new Entities()) {
+            using (IST421Entities entities = new IST421Entities())
+            {
                 try {
                     member newMember = new member();
 

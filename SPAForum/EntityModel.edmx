@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ist331Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ist421Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="catagories">
           <Key>
             <PropertyRef Name="id" />
@@ -143,7 +143,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ist331ModelStoreContainer">
+        <EntityContainer Name="ist421ModelStoreContainer">
           <EntitySet Name="catagories" EntityType="Self.catagories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="forums" EntityType="Self.forums" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="members" EntityType="Self.members" Schema="dbo" store:Type="Tables" />
@@ -179,7 +179,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="ist331Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="ist421Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="catagory">
           <Key>
             <PropertyRef Name="id" />
@@ -330,7 +330,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="IST421Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="catagories" EntityType="Self.catagory" />
           <EntitySet Name="forums" EntityType="Self.forum" />
           <EntitySet Name="members" EntityType="Self.member" />
@@ -367,9 +367,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ist331ModelStoreContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="ist421ModelStoreContainer" CdmEntityContainer="IST421Entities">
           <EntitySetMapping Name="catagories">
-            <EntityTypeMapping TypeName="ist331Model.catagory">
+            <EntityTypeMapping TypeName="ist421Model.catagory">
               <MappingFragment StoreEntitySet="catagories">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -377,7 +377,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="forums">
-            <EntityTypeMapping TypeName="ist331Model.forum">
+            <EntityTypeMapping TypeName="ist421Model.forum">
               <MappingFragment StoreEntitySet="forums">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="topics" ColumnName="topics" />
@@ -390,7 +390,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="members">
-            <EntityTypeMapping TypeName="ist331Model.member">
+            <EntityTypeMapping TypeName="ist421Model.member">
               <MappingFragment StoreEntitySet="members">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -403,7 +403,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="posts">
-            <EntityTypeMapping TypeName="ist331Model.post">
+            <EntityTypeMapping TypeName="ist421Model.post">
               <MappingFragment StoreEntitySet="posts">
                 <ScalarProperty Name="pid" ColumnName="pid" />
                 <ScalarProperty Name="author_id" ColumnName="author_id" />
@@ -415,7 +415,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sessions">
-            <EntityTypeMapping TypeName="ist331Model.session">
+            <EntityTypeMapping TypeName="ist421Model.session">
               <MappingFragment StoreEntitySet="session">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="session1" ColumnName="session" />
@@ -425,7 +425,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="topics">
-            <EntityTypeMapping TypeName="ist331Model.topic">
+            <EntityTypeMapping TypeName="ist421Model.topic">
               <MappingFragment StoreEntitySet="topics">
                 <ScalarProperty Name="tid" ColumnName="tid" />
                 <ScalarProperty Name="title" ColumnName="title" />
