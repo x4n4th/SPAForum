@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.html" />
+    <Content Include="App_Data\Scripts\IST421DBSetup.sql" />
     <Content Include="custom.css" />
     <Content Include="AdminPage.html" />
     <Content Include="Images\default_user_Image.png" />
@@ -446,9 +447,7 @@
     <Compile Include="TopicFormatted.cs" />
     <Compile Include="TopicPage.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\Scripts\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
