@@ -453,5 +453,14 @@ namespace SPAForum
 
             return HexStringFromBytes(hashBytes);
         }
+
+        public comEvent[] getPromotionEvents() {
+            using (IST421Entities entities = new IST421Entities()) {
+                var events = from s in entities.comEvents.Take(5)
+                             select s;
+
+                return events.ToArray<comEvent>();
+            }
+        }
     }
 }

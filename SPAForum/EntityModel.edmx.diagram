@@ -17,7 +17,8 @@
         <AssociationConnector Association="ist421Model.fk_session_members" ManuallyRouted="false" />
         <AssociationConnector Association="ist421Model.fk_topics_members" ManuallyRouted="false" />
         <AssociationConnector Association="ist421Model.fk_posts_topics" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="ist421Model.event" Width="1.5" PointX="5.625" PointY="0.75" />
+        <EntityTypeShape EntityType="ist421Model.memberEvent" Width="1.5" PointX="7.875" PointY="0.875" />
+        <EntityTypeShape EntityType="ist421Model.comEvent" Width="1.5" PointX="8.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

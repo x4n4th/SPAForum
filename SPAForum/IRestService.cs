@@ -135,5 +135,15 @@ namespace SPAForum
             ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
         bool watchDog(int fId, int tid);
+
+        /// <summary>
+        /// Returns a list of promoted events
+        /// </summary>
+        /// <returns>A List of promoted events in json</returns>
+        [WebGet(UriTemplate = "/promotedEvents",
+            ResponseFormat = WebMessageFormat.Json)]
+        [OperationContract]
+
+        comEvent[] getPromotionEvents();
     }
 }

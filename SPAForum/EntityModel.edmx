@@ -12,12 +12,9 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'ist421.dbo.events' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="events">
+        <EntityType Name="comEvents">
           <Key>
             <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -40,13 +37,14 @@ warning 6002: The table/view 'ist421.dbo.events' does not have a primary key def
           <Property Name="position" Type="int" />
           <Property Name="catagorieId" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'ist421.dbo.memberEvent' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="memberEvent">
-          <Property Name="id" Type="int" />
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="member" Type="int" />
           <Property Name="event" Type="int" />
-        </EntityType>-->
+        </EntityType>
         <EntityType Name="members">
           <Key>
             <PropertyRef Name="id" />
@@ -168,23 +166,13 @@ warning 6013: The table/view 'ist421.dbo.memberEvent' does not have a primary ke
         </Association>
         <EntityContainer Name="ist421ModelStoreContainer">
           <EntitySet Name="catagories" EntityType="Self.catagories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="comEvents" EntityType="Self.comEvents" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="forums" EntityType="Self.forums" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="memberEvent" EntityType="Self.memberEvent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="members" EntityType="Self.members" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="posts" EntityType="Self.posts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="session" EntityType="Self.session" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="topics" EntityType="Self.topics" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="events" EntityType="Self.events" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [events].[id] AS [id], 
-    [events].[name] AS [name], 
-    [events].[dateCreated] AS [dateCreated], 
-    [events].[dateStart] AS [dateStart], 
-    [events].[wayPoints] AS [wayPoints], 
-    [events].[startPoint] AS [startPoint], 
-    [events].[endPoint] AS [endPoint], 
-    [events].[description] AS [description]
-    FROM [dbo].[events] AS [events]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="fk_Catagories" Association="Self.fk_Catagories">
             <End Role="catagories" EntitySet="catagories" />
             <End Role="forums" EntitySet="forums" />
@@ -395,12 +383,20 @@ warning 6013: The table/view 'ist421.dbo.memberEvent' does not have a primary ke
             <End Role="topics" EntitySet="topics" />
             <End Role="posts" EntitySet="posts" />
           </AssociationSet>
-          <EntitySet Name="events" EntityType="ist421Model.event" />
+          <EntitySet Name="memberEvents" EntityType="ist421Model.memberEvent" />
+          <EntitySet Name="comEvents" EntityType="ist421Model.comEvent" />
         </EntityContainer>
-        <EntityType Name="event">
+        <EntityType Name="memberEvent">
           <Key>
             <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="member" Type="Int32" />
+          <Property Name="event" Type="Int32" />
+        </EntityType>
+        <EntityType Name="comEvent">
+          <Key>
+            <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -489,9 +485,18 @@ warning 6013: The table/view 'ist421.dbo.memberEvent' does not have a primary ke
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="events">
-            <EntityTypeMapping TypeName="ist421Model.event">
-              <MappingFragment StoreEntitySet="events">
+          <EntitySetMapping Name="memberEvents">
+            <EntityTypeMapping TypeName="ist421Model.memberEvent">
+              <MappingFragment StoreEntitySet="memberEvent">
+                <ScalarProperty Name="event" ColumnName="event" />
+                <ScalarProperty Name="member" ColumnName="member" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="comEvents">
+            <EntityTypeMapping TypeName="ist421Model.comEvent">
+              <MappingFragment StoreEntitySet="comEvents">
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="endPoint" ColumnName="endPoint" />
                 <ScalarProperty Name="startPoint" ColumnName="startPoint" />

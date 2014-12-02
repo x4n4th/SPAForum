@@ -12,7 +12,7 @@ namespace SPAForum
     using System;
     using System.Collections.Generic;
     
-    public partial class @event
+    public partial class comEvent
     {
         public int id { get; set; }
         public string name { get; set; }
