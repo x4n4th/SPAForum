@@ -4,13 +4,29 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ist421Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ist421Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="catagories">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ist421.dbo.events' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="events">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="dateCreated" Type="datetime" />
+          <Property Name="dateStart" Type="datetime" />
+          <Property Name="wayPoints" Type="text" />
+          <Property Name="startPoint" Type="varchar" MaxLength="50" />
+          <Property Name="endPoint" Type="varchar" MaxLength="50" />
+          <Property Name="description" Type="text" />
         </EntityType>
         <EntityType Name="forums">
           <Key>
@@ -24,6 +40,13 @@
           <Property Name="position" Type="int" />
           <Property Name="catagorieId" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'ist421.dbo.memberEvent' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="memberEvent">
+          <Property Name="id" Type="int" />
+          <Property Name="member" Type="int" />
+          <Property Name="event" Type="int" />
+        </EntityType>-->
         <EntityType Name="members">
           <Key>
             <PropertyRef Name="id" />
@@ -150,6 +173,18 @@
           <EntitySet Name="posts" EntityType="Self.posts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="session" EntityType="Self.session" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="topics" EntityType="Self.topics" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="events" EntityType="Self.events" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [events].[id] AS [id], 
+    [events].[name] AS [name], 
+    [events].[dateCreated] AS [dateCreated], 
+    [events].[dateStart] AS [dateStart], 
+    [events].[wayPoints] AS [wayPoints], 
+    [events].[startPoint] AS [startPoint], 
+    [events].[endPoint] AS [endPoint], 
+    [events].[description] AS [description]
+    FROM [dbo].[events] AS [events]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="fk_Catagories" Association="Self.fk_Catagories">
             <End Role="catagories" EntitySet="catagories" />
             <End Role="forums" EntitySet="forums" />
@@ -175,8 +210,7 @@
             <End Role="topics" EntitySet="topics" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ist421Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -361,7 +395,22 @@
             <End Role="topics" EntitySet="topics" />
             <End Role="posts" EntitySet="posts" />
           </AssociationSet>
+          <EntitySet Name="events" EntityType="ist421Model.event" />
         </EntityContainer>
+        <EntityType Name="event">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="dateCreated" Type="DateTime" Precision="3" />
+          <Property Name="dateStart" Type="DateTime" Precision="3" />
+          <Property Name="wayPoints" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="startPoint" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="endPoint" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -437,6 +486,20 @@
                 <ScalarProperty Name="views" ColumnName="views" />
                 <ScalarProperty Name="replies" ColumnName="replies" />
                 <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="events">
+            <EntityTypeMapping TypeName="ist421Model.event">
+              <MappingFragment StoreEntitySet="events">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="endPoint" ColumnName="endPoint" />
+                <ScalarProperty Name="startPoint" ColumnName="startPoint" />
+                <ScalarProperty Name="wayPoints" ColumnName="wayPoints" />
+                <ScalarProperty Name="dateStart" ColumnName="dateStart" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

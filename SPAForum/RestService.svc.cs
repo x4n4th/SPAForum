@@ -92,7 +92,6 @@ namespace SPAForum
 
                         foreach (topic t in topics) {
                             post tempPost = entities.posts.Where(x => x.topic_id == t.tid).OrderByDescending(x => x.post_date).FirstOrDefault();
-
                             if (tempPost.post_date.CompareTo(p.post_date) == 1) {
                                 p = tempPost;
                             }

@@ -31,5 +31,6 @@ namespace SPAForum
         public virtual DbSet<post> posts { get; set; }
         public virtual DbSet<session> sessions { get; set; }
         public virtual DbSet<topic> topics { get; set; }
+        public virtual DbSet<@event> events { get; set; }
     }
 }
