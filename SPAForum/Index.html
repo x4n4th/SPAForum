@@ -22,7 +22,8 @@
     <div class="masthead">
         <div class="container">
             <nav class="nav">
-                <a class="nav-item" href="#Index">Home</a>
+                <a class="nav-item" href="#PromotionEvents">Home</a>
+                <a class="nav-item" href="#Index">Forum</a>
                 <a class="nav-item" href="#About">About</a>
                 <span id="loginRegister">
                     <p class="nav-item" data-toggle="modal" data-target="#loginModal"><a href="">Sign In</a></p>
@@ -43,6 +44,19 @@
     <div data-ng-controller="watchDog" data-ng-init="init()">
         <!--Loads Watch Dog Controller-->
     </div>
+
+    <!--------------------->
+    <!-- Events Promotion Menu -->
+    <!--------------------->
+    <div style="padding:5px;" id="statePromotionEvents" class="container" data-ng-controller="loadPromotionEvents" data-ng-init="init()">
+        <div ng-repeat="event in events" class="panel-group" id="accordion">
+            {{event}}
+        </div> <!--Panel Ending -->
+    </div><!--Container Ending -->
+    <!------------------------->
+    <!-- END Catagories Menu -->
+    <!------------------------->
+
 
     <!--------------------->
     <!-- Catagories Menu -->
@@ -395,8 +409,8 @@
     <script>
         var app = angular.module('SPFApp', ['ngRoute', 'SPFControllers', 'SPFFilters']);
 
-        location.hash = 'Index';
-        states = ['Index', 'Topics', 'Posts', 'Profile', 'About'];
+        location.hash = 'PromotionEvents';
+        states = ['PromotionEvents', 'Index', 'Topics', 'Posts', 'Profile', 'About'];
 
         var session;
         var user;
@@ -425,6 +439,20 @@
             //var hash = location.hash;
             setState(hash);
         });
+
+        function loadPromotionEvents($scope) {
+            $scope.init = function () {
+                var query = "/RestService.svc/promotedEvents";
+                $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
+                    .done(function (json) {
+                        $scope.events = json;
+                        $scope.$apply();
+                    })
+                    .fail(function () {
+                        alert("Error");
+                    });
+            }
+        }
 
         function loadCatagories($scope) {
 
@@ -668,7 +696,7 @@
                 
                 $('#state' + state).show();
             } else {
-                $('#stateIndex').show();
+                $('#statePromotionEvents').show();
             }
         }
 
