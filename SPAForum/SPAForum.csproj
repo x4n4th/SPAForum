@@ -72,10 +72,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="About.html" />
     <Content Include="App_Data\Scripts\IST421DBSetup.sql" />
     <Content Include="custom.css" />
-    <Content Include="AdminPage.html" />
     <Content Include="Images\default_user_Image.png" />
     <Content Include="Images\icon_read.png" />
     <Content Include="Index.html" />
@@ -134,7 +132,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Profile.html" />
     <Content Include="RestService.svc" />
     <Content Include="SC\CloseSearch.png" />
     <Content Include="SC\CollapseAll.png" />
@@ -399,7 +396,6 @@
     <Content Include="SC\WebTOC.xml" />
     <Content Include="summernote.css" />
     <Content Include="summernote.js" />
-    <Content Include="topics.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
