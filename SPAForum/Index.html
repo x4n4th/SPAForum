@@ -87,10 +87,12 @@
     <!-- Event Menu -->
     <!---------------->
     <div style="padding:5px;" id="stateEvent" class="container" data-ng-controller="loadEvent">
-            {{event}}
-
-        <div id="map-canvas" style="float:left;width:70%;height:500px"></div>
-        <div id="control_panel" style="float:right;width:30%;text-align:left;padding-top:20px">
+        <b>{{event.name}}</b><br>
+        <b>Start Date: </b>{{event.dateStart}}<br>
+        <b>End Created: </b>{{event.dateCreated}}<br>
+        <b>Description: </b>{{event.description}}<br>
+        <div id="map-canvas" style="float:left;width:70%;height:500px;margin-top: 25px;"></div>
+        <div id="control_panel" style="float:right;width:30%;text-align:left;">
             <div style="margin:20px;border-width:2px;">
                 <b>Start:</b>
                 <div id="start">{{event.startPoint}}</div>
@@ -105,6 +107,8 @@
                 <br>
             </div>
             <div id="directions_panel" style="margin:20px;background-color:#FFEE77;"></div>
+
+            <button style="margin:20px;" class=" btn btn-primary">Register</button>
         </div>
     </div><!--Container Ending -->
     <!-------------------->
