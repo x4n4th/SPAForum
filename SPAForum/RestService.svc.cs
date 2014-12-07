@@ -495,5 +495,26 @@ namespace SPAForum
                 return false;
             }
         }
+
+        public bool checkRegisterEvent(string user, int eventId){
+            using (IST421Entities entities = new IST421Entities()) {
+                var members = entities.members.Where(x => x.name == user);
+                member suppliedMember = null;
+
+                foreach (member mem in members) {
+                    suppliedMember = mem;
+                }
+
+                if (suppliedMember != null) {
+
+                    var memberEvents = entities.memberEvents.Where(x => x.member == suppliedMember.id && x.@event == eventId);
+
+                    if (memberEvents.Count() > 0) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
     }
 }
