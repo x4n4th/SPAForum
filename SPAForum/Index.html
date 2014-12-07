@@ -53,7 +53,8 @@
                 </span>
                 <span id="userLoggedIn" style="display:none" data-ng-controller="userLogged" data-ng-init="init()">
                     <p class="nav-item" data-toggle="modal" data-target=""><a href="#Profile">Welcome {{name}} </a></p>
-                    <p class="nav-item" data-toggle="modal" onclick="logOut()" data-target=""><a href="">Logout</a></p>   
+                    <p class="nav-item" data-toggle="modal" onclick="logOut()" data-target=""><a href="">Logout</a></p>  
+                    <p class="nav-item" data-toggle="modal" data-target=""><a href="#NewEvent">New Event</a></p>
                 </span>
                
                 <form class="navbar-form navbar-right">
@@ -223,7 +224,6 @@
         <div style="padding: 20px; float: right;">
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#newTopicModal">New Topic</button>
         </div>
-        </div> <!--Panel Ending -->
     </div><!--Container Ending -->
     <!--------------------->
     <!-- END Topics Menu -->
@@ -522,7 +522,13 @@
                 $scope.wayPoints = angular.fromJson(event.wayPoints);
                 $scope.$apply();
 
+                var forum = {};
+                forum.id = event.forumId
+                
+                $rootScope.$broadcast('loadTopic', forum);
+
                 calcRoute(event);
+
             });
         }
 
@@ -769,6 +775,11 @@
                 $('#state' + state).show();
             } else {
                 $('#statePromotionEvents').show();
+            }
+
+            if (state == "Event") {
+
+                $('#stateTopics').show();
             }
         }
 

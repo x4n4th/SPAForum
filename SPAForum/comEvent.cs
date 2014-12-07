@@ -22,5 +22,7 @@ namespace SPAForum
         public string startPoint { get; set; }
         public string endPoint { get; set; }
         public string description { get; set; }
+        public Nullable<int> memberId { get; set; }
+        public Nullable<int> forumId { get; set; }
     }
 }

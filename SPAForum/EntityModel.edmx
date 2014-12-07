@@ -17,13 +17,15 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="dateCreated" Type="datetime" />
           <Property Name="dateStart" Type="datetime" />
           <Property Name="wayPoints" Type="text" />
-          <Property Name="startPoint" Type="varchar" MaxLength="50" />
-          <Property Name="endPoint" Type="varchar" MaxLength="50" />
+          <Property Name="startPoint" Type="varchar" MaxLength="256" />
+          <Property Name="endPoint" Type="varchar" MaxLength="256" />
           <Property Name="description" Type="text" />
+          <Property Name="memberId" Type="int" />
+          <Property Name="forumId" Type="int" />
         </EntityType>
         <EntityType Name="forums">
           <Key>
@@ -399,13 +401,15 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="dateCreated" Type="DateTime" Precision="3" />
           <Property Name="dateStart" Type="DateTime" Precision="3" />
           <Property Name="wayPoints" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="startPoint" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="endPoint" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="startPoint" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="endPoint" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="memberId" Type="Int32" />
+          <Property Name="forumId" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -497,6 +501,8 @@
           <EntitySetMapping Name="comEvents">
             <EntityTypeMapping TypeName="ist421Model.comEvent">
               <MappingFragment StoreEntitySet="comEvents">
+                <ScalarProperty Name="forumId" ColumnName="forumId" />
+                <ScalarProperty Name="memberId" ColumnName="memberId" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="endPoint" ColumnName="endPoint" />
                 <ScalarProperty Name="startPoint" ColumnName="startPoint" />
