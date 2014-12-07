@@ -465,7 +465,7 @@ namespace SPAForum
                     listOfEvents.Add(new EventFormatted(e));
                 }
 
-                return listOfEvents.ToArray();
+                return listOfEvents.ToArray<EventFormatted>();
             }
         }
     }

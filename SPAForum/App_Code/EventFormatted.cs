@@ -5,6 +5,7 @@ using System.Web;
 
 namespace SPAForum
 {
+    [Serializable]
     public class EventFormatted
     {
         public EventFormatted(comEvent e){
@@ -16,18 +17,19 @@ namespace SPAForum
             this.startPoint = e.startPoint;
             this.endPoint = e.endPoint;
             this.description = e.description;
-            this.memberId = e.memberId;
-            this.forumId = e.forumId;
+            this.memberId = (int)e.memberId;
+            this.forumId = (int)e.forumId;
         }
-        public int id { get; set; }
-        public string name { get; set; }
-        public string dateCreated { get; set; }
-        public string dateStart { get; set; }
-        public string wayPoints { get; set; }
-        public string startPoint { get; set; }
-        public string endPoint { get; set; }
-        public string description { get; set; }
-        public Nullable<int> memberId { get; set; }
-        public Nullable<int> forumId { get; set; }
+
+        int id;
+        string name;
+        string dateCreated;
+        string dateStart;
+        string wayPoints;
+        string startPoint;
+        string endPoint;
+        string description;
+        int memberId;
+        int forumId;
     }
 }
