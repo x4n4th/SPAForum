@@ -73,10 +73,31 @@
     <!--------------------------->
     <div style="padding:5px;" id="statePromotionEvents" class="container" data-ng-controller="loadPromotionEvents" data-ng-init="init()">
         <div ng-repeat="event in events" class="panel-group" id="accordion">
-            <div class="topic-list">
-                
-                <a ng-click="loadEvent(event)" href="#Event">{{event.name}}</a>
-                Start Date : {{event.dateStart}}
+            <div class="col-md-8 topic-list">
+                <ul>
+                    <li>
+                        <div class="row">
+                            <div class="col-md-1"><div class="avatarI" style="background-image: url(Images/icon_read.png)"></div></div>
+                            <div class="col-xs-12 col-md-8">
+                                <!--<h5 onclick="setState('Topics')">{{forum.name}}</h5>-->
+                                <div style="padding: 5px;">
+                                    <a ng-click="loadEvent(event)" href="#Event">{{event.name}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4 last-post">
+                <ul>
+                    <li>
+                        <div class="row">
+                            <div class="col-xs-6 col-md-8">
+                                <p class="small"> {{event.dateStart}}</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
          </div> <!--Panel Ending -->
     </div><!--Container Ending -->

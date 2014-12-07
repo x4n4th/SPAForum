@@ -144,6 +144,6 @@ namespace SPAForum
             ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
 
-        comEvent[] getPromotionEvents();
+        EventFormatted[] getPromotionEvents();
     }
 }

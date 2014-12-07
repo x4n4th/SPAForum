@@ -399,10 +399,11 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Code\EventFormatted.cs" />
     <Compile Include="catagory.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CatagoryFormatted.cs" />
+    <Compile Include="App_Code\CatagoryFormatted.cs" />
     <Compile Include="comEvent.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
@@ -424,7 +425,7 @@
     <Compile Include="forum.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ForumFormatted.cs" />
+    <Compile Include="App_Code\ForumFormatted.cs" />
     <Compile Include="IRestService.cs" />
     <Compile Include="member.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
@@ -435,7 +436,7 @@
     <Compile Include="post.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="PostFormatted.cs" />
+    <Compile Include="App_Code\PostFormatted.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RestService.svc.cs">
       <DependentUpon>RestService.svc</DependentUpon>
@@ -446,7 +447,7 @@
     <Compile Include="topic.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="TopicFormatted.cs" />
+    <Compile Include="App_Code\TopicFormatted.cs" />
     <Compile Include="TopicPage.cs" />
   </ItemGroup>
   <ItemGroup />
