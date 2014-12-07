@@ -130,7 +130,7 @@
             </div>
             <div id="directions_panel" style="margin:20px;background-color:#FFEE77;"></div>
 
-            <button style="margin:20px;" class=" btn btn-primary">Register</button>
+            <button style="margin:20px;" ng-click="register(event)" class=" btn btn-primary">Register</button>
         </div>
     </div><!--Container Ending -->
     <!-------------------->
@@ -551,6 +551,16 @@
                 calcRoute(event);
 
             });
+            $scope.register = function (event) {
+                var query = "/RestService.svc/registerEvent?session=" + session + "&user=" + user + "&event=" + event.id;
+                $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
+                    .done(function (json) {
+                        alert("Registered");
+                    })
+                    .fail(function () {
+                        alert("Error");
+                    });
+            }
         }
 
         function loadCatagories($scope) {

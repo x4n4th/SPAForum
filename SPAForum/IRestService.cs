@@ -145,5 +145,18 @@ namespace SPAForum
         [OperationContract]
 
         EventFormatted[] getPromotionEvents();
+
+        /// <summary>
+        /// Registers a user with an event.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="email"></param>
+        /// <param name="rawPassword"></param>
+        /// <returns>if the username was create successfully.</returns>
+        /// //registerEvent?session=" + session + "&user=" + user + "&event=" + event.id;
+        [WebGet(UriTemplate = "/registerEvent?session={session}&user={user}&event={eventId}",
+            ResponseFormat = WebMessageFormat.Json)]
+        [OperationContract]
+        bool registerEvent(string session, string user, int eventId);
     }
 }
