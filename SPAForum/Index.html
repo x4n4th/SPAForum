@@ -52,7 +52,7 @@
                     <p class="nav-item" data-toggle="modal" data-target="#Reg"><a href="">Register</a></p>  
                 </span>
                 <span id="userLoggedIn" style="display:none" data-ng-controller="userLogged" data-ng-init="init()">
-                    <p class="nav-item" data-toggle="modal" data-target=""><a href="#Profile">Welcome {{name}} </a></p>
+                    <p class="nav-item" data-toggle="modal" data-target=""><a ng-click="profile()" href="#Profile">Welcome {{name}} </a></p>
                     <p class="nav-item" data-toggle="modal" onclick="logOut()" data-target=""><a href="">Logout</a></p>  
                     <p class="nav-item" data-toggle="modal" data-target=""><a href="#NewEvent">New Event</a></p>
                 </span>
@@ -135,8 +135,22 @@
     </div><!--Container Ending -->
     <!-------------------->
     <!-- END Event Menu -->
-    <!---------------------->
+    <!--------------------->
 
+    <!--------------------->
+    <!-- New Event Menu -->
+    <!--------------------->
+    <div style="padding:5px;" id="stateNewEvent" class="container" data-ng-controller="newEvent">
+       <input id="eventName" placeholder="Event Name" />
+       <input id="eventDescription" placeholder="Description" />
+       <input id="eventStartPoint" />
+       <input id="eventEndPoint"/>
+       <input id="waypoints" />
+    </div>
+    <!------------------------->
+    <!-- END Catagories Menu -->
+    <!------------------------->
+    
 
     <!--------------------->
     <!-- Catagories Menu -->
@@ -337,7 +351,7 @@
     <!------------------>
     <!-- Profile Page -->
     <!------------------>
-    <div style="padding:5px; display:none;" id="stateProfile" class="container" >
+    <div style="padding:5px; display:none;" id="stateProfile" class="container" data-ng-controller="loadProfile">
         <div class="row fi">
             <div class="col-md-4">
                 <img data-src="Images/default_user_Image.png" class="img-thumbnail" alt="200x200" src="http://www.gravatar.com/avatar/{{forum.gravatar}}?s=200" style="width: 200px; height: 200px;">
@@ -347,9 +361,9 @@
                 <div class="profile_content_main">
                     <div class="user_info_cell">
                         <h1 class="">
-                            <span class="">{{User}}</span>
+                            <span class="">{{userName}}</span>
                         </h1>
-                        {{user.JoinDate}}<br>
+                        <br>
                         <span class="label label-success">Online</span>
                         <span class="">Last Active Today, 08:31 PM</span>
                     </div>
@@ -379,6 +393,11 @@
                         <span class="row_data ">Country</span>
                     </li>
                 </ul>
+            </div>
+            <div class="row">
+                <div class="" ng-repeat="event in events">
+                    {{event}}
+                </div>
             </div>
         </div>
     </div>
@@ -490,7 +509,7 @@
         var app = angular.module('SPFApp', ['ngRoute', 'SPFControllers', 'SPFFilters']);
 
         location.hash = 'PromotionEvents';
-        states = ['PromotionEvents', 'Index', 'Topics', 'Posts', 'Profile', 'About', 'Event'];
+        states = ['PromotionEvents', 'Index', 'Topics', 'Posts', 'Profile', 'About', 'Event', 'NewEvent'];
 
         var session;
         var user;
@@ -808,6 +827,29 @@
                 
                 $scope.name = name;
                 $scope.$apply();
+            });
+            $scope.profile = function () {
+                $rootScope.$broadcast('loadProfile');
+            }
+        }
+
+        function newEvent($scope, $rootScope) {
+
+        }
+
+        function loadProfile($scope, $rootScope) {
+            $rootScope.$on('loadProfile', function (stuff, name) {
+                var query = "/RestService.svc/eventsRegisteredFor?user=" + user;
+                $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
+                    .done(function (json) {
+                        $scope.events = json;
+                        $scope.userName = user;
+
+                        $scope.$apply();
+                    })
+                    .fail(function () {
+                        alert("Error");
+                    });
             });
         }
 

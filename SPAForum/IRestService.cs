@@ -171,5 +171,18 @@ namespace SPAForum
             ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
         bool checkRegisterEvent(string user, int eventId);
+
+        /// <summary>
+        /// Registered for event?
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="email"></param>
+        /// <param name="rawPassword"></param>
+        /// <returns>if the username was create successfully.</returns>
+        /// "/checkRegisterEvent?user={user}&event={eventId}",
+        [WebGet(UriTemplate = "/eventsRegisteredFor?user={user}",
+            ResponseFormat = WebMessageFormat.Json)]
+        [OperationContract]
+        EventFormatted[] eventsRegisteredFor(string user);
     }
 }
