@@ -469,7 +469,39 @@ namespace SPAForum
             }
         }
 
-        public bool registerEvent(string session, string user, int eventId) {
+        public bool registerEvent(string session, string user, int eventId)
+        {
+            using (IST421Entities entities = new IST421Entities())
+            {
+                var members = entities.members.Where(x => x.name == user);
+                member suppliedMember = null;
+
+                foreach (member mem in members)
+                {
+                    suppliedMember = mem;
+                }
+
+                if (suppliedMember != null)
+                {
+                    var sessions = entities.sessions
+                        .Where(x => x.session1 == session && x.member_id == suppliedMember.id);
+
+                    if (sessions.Count() > 0)
+                    {
+                        memberEvent mEvent = new memberEvent();
+                        mEvent.member = suppliedMember.id;
+                        mEvent.@event = eventId;
+
+                        entities.memberEvents.Add(mEvent);
+                        entities.SaveChanges();
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
+        public bool unregisterEvent(string session, string user, int eventId) {
             using (IST421Entities entities = new IST421Entities()) {
                 var members = entities.members.Where(x => x.name == user);
                 member suppliedMember = null;
@@ -483,12 +515,7 @@ namespace SPAForum
                         .Where(x => x.session1 == session && x.member_id == suppliedMember.id);
 
                     if (sessions.Count() > 0) {
-                        memberEvent mEvent = new memberEvent();
-                        mEvent.member = suppliedMember.id;
-                        mEvent.@event = eventId;
-
-                        entities.memberEvents.Add(mEvent);
-                        entities.SaveChanges();
+                        entities.memberEvents.RemoveRange(entities.memberEvents.Where(x => x.member == suppliedMember.id && x.@event == eventId));
                         return true;
                     }
                 }

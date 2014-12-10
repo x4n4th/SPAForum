@@ -160,6 +160,19 @@ namespace SPAForum
         bool registerEvent(string session, string user, int eventId);
 
         /// <summary>
+        /// Unregisters a user with an event.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="email"></param>
+        /// <param name="rawPassword"></param>
+        /// <returns>if the username was create successfully.</returns>
+        /// //registerEvent?session=" + session + "&user=" + user + "&event=" + event.id;
+        [WebGet(UriTemplate = "/registerEvent?session={session}&user={user}&event={eventId}",
+            ResponseFormat = WebMessageFormat.Json)]
+        [OperationContract]
+        bool unregisterEvent(string session, string user, int eventId);
+
+        /// <summary>
         /// Registered for event?
         /// </summary>
         /// <param name="username"></param>

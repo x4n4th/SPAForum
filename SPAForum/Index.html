@@ -566,11 +566,9 @@
                     $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
                         .done(function (json) {
                             if(json == true){
-                                $('#registerFromEvent').prop("disabled",true);
-                                $scope.registered = 'Registered';
+                                $scope.registered = 'Unregister';
                             } else {
                                 $scope.registered = 'Register';
-                                $('#registerFromEvent').prop("disabled", false);
                             }
                             $scope.$apply();
                         })
@@ -591,14 +589,26 @@
 
             });
             $scope.register = function (event) {
-                var query = "/RestService.svc/registerEvent?session=" + session + "&user=" + user + "&event=" + event.id;
-                $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
-                    .done(function (json) {
-                        alert("Registered");
-                    })
-                    .fail(function () {
-                        alert("Error");
-                    });
+                if ($('#registerFromEvent').html() == "register") {
+                    var query = "/RestService.svc/registerEvent?session=" + session + "&user=" + user + "&event=" + event.id;
+                    $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
+                        .done(function (json) {
+                            alert("Registered");
+                        })
+                        .fail(function () {
+                            alert("Error");
+                        });
+                } else {
+                    var query = "/RestService.svc/unregisterEvent?session=" + session + "&user=" + user + "&event=" + event.id;
+                    $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
+                        .done(function (json) {
+                            alert("Unregistered");
+                        })
+                        .fail(function () {
+                            alert("Error");
+                        });
+                }
+
             }
         }
 
