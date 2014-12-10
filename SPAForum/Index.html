@@ -589,7 +589,7 @@
 
             });
             $scope.register = function (event) {
-                if ($('#registerFromEvent').html() == "register") {
+                if ($('#registerFromEvent').html() == "Register") {
                     var query = "/RestService.svc/registerEvent?session=" + session + "&user=" + user + "&event=" + event.id;
                     $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
                         .done(function (json) {

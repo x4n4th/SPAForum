@@ -516,6 +516,7 @@ namespace SPAForum
 
                     if (sessions.Count() > 0) {
                         entities.memberEvents.RemoveRange(entities.memberEvents.Where(x => x.member == suppliedMember.id && x.@event == eventId));
+                        entities.SaveChanges();
                         return true;
                     }
                 }
@@ -557,13 +558,20 @@ namespace SPAForum
 
                 if (suppliedMember != null)
                 {
-                    var events = from s in entities.comEvents.Where(x => x.memberId == suppliedMember.id) select s;
+                    //var events = from s in entities.memberEvents.Where(x => x.member == suppliedMember.id) select s;
+
+                    var events = entities.comEvents.Join(entities.memberEvents
+                        , e => e.id
+                        , m => m.@event
+                        , (e, m) => new { @events = e, MemberEvents = m })
+                        .Where(x => x.MemberEvents.member == suppliedMember.id);
+
 
                     List<EventFormatted> listOfEvents = new List<EventFormatted>();
 
-                    foreach (comEvent e in events)
+                    foreach (var e in events)
                     {
-                        listOfEvents.Add(new EventFormatted(e));
+                        listOfEvents.Add(new EventFormatted(e.events));
                     }
 
                     return listOfEvents.ToArray<EventFormatted>();
