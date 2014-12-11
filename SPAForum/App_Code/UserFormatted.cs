@@ -8,7 +8,7 @@ namespace SPAForum
     [Serializable]
     public class UserFormatted
     {
-        public string session { get; private set; }
+        public string session;
         public string gravitar;
 
         public UserFormatted(string session, string gravitar)
