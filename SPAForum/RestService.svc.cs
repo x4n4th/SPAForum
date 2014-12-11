@@ -311,7 +311,7 @@ namespace SPAForum
         /// <param name="user">users name or login</param>
         /// <param name="password">password</param>
         /// <returns>session string if user is valid</returns>
-        public string verifyUser(string user, string password) {
+        public UserFormatted verifyUser(string user, string password) {
             using (IST421Entities entities = new IST421Entities())
             {
                 string hashedPassword = SHA1HashStringForUTF8String(password);
@@ -328,8 +328,12 @@ namespace SPAForum
 
                     session dbSession = new session();
 
+                    string emailHash = "";
+
                     foreach(member mem in member){
                         dbSession.member_id = mem.id;
+                        emailHash = MD5HashStringForUTF8String(mem.email);
+
                     }
 
                     var sessions = from s in entities.sessions
@@ -346,10 +350,12 @@ namespace SPAForum
                     entities.sessions.Add(dbSession);
                     entities.SaveChanges();
 
-                    return sessionStr;
+
+
+                    return new UserFormatted(sessionStr, emailHash);
                 }
             }
-            return "Not Valid";
+            return null;
         }
 
         /// <summary>

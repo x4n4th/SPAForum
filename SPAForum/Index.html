@@ -354,7 +354,7 @@
     <div style="padding:5px; display:none;" id="stateProfile" class="container" data-ng-controller="loadProfile">
         <div class="row fi">
             <div class="col-md-4">
-                <img data-src="Images/default_user_Image.png" class="img-thumbnail" alt="200x200" src="http://www.gravatar.com/avatar/{{forum.gravatar}}?s=200" style="width: 200px; height: 200px;">
+                <img data-src="Images/default_user_Image.png" class="img-thumbnail" alt="200x200" src="http://www.gravatar.com/avatar/{{gravitar}}?s=200" style="width: 200px; height: 200px;">
                 <div style="padding-left: 40px; padding-top: 10px;"><span class="">Member</span></div>
             </div>
             <div class="col-md-4">
@@ -518,6 +518,8 @@
         //Current forum / topic
         var topicObj;
         var forumObj;
+
+        var gravitar;
 
         //Pages
         var topicPage;
@@ -771,7 +773,8 @@
                         console.log(json);
                         if (json != 'Not Valid') {
                             user = $scope.userName;
-                            session = json;
+                            gravitar = json.gravitar;
+                            session = json.session;
                             $('#loginModal').modal("hide");
                             $rootScope.$broadcast('userLoggedIn', $scope.userName);
                         }
@@ -854,7 +857,7 @@
                     .done(function (json) {
                         $scope.events = json;
                         $scope.userName = user;
-
+                        $scope.gravitar = gravitar;
                         $scope.$apply();
                     })
                     .fail(function () {

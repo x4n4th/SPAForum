@@ -400,6 +400,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Code\EventFormatted.cs" />
+    <Compile Include="App_Code\UserFormatted.cs" />
     <Compile Include="catagory.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
